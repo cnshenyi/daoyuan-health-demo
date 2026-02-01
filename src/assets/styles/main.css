@@ -537,33 +537,69 @@ html {
   border-color: rgba(201, 169, 98, 0.3) !important;
 }
 
-/* 去掉头像点击时的白色边框 */
-.el-dropdown:focus,
-.el-dropdown:focus-visible,
-.el-dropdown:active {
-  outline: none !important;
+/* 去掉下拉菜单的白色边框/阴影 */
+.user-dropdown-popper.el-popper {
+  border: none !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4) !important;
 }
 
+.user-dropdown-popper.el-popper.is-light {
+  border: 1px solid rgba(201, 169, 98, 0.3) !important;
+  background: transparent !important;
+}
+
+/* 去掉头像点击时的白色边框 */
+.el-dropdown,
+.el-dropdown *,
+.el-dropdown:focus,
+.el-dropdown:focus-visible,
+.el-dropdown:active,
+.el-dropdown *:focus,
+.el-dropdown *:focus-visible,
+.el-dropdown *:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.el-dropdown .el-tooltip__trigger,
 .el-dropdown .el-tooltip__trigger:focus,
 .el-dropdown .el-tooltip__trigger:focus-visible {
   outline: none !important;
   box-shadow: none !important;
+  border: none !important;
 }
 
-.header-right .el-avatar {
+/* 头像本身不要边框 */
+.header-right .el-avatar,
+.header-right .el-avatar:focus,
+.header-right .el-avatar:active {
   outline: none !important;
   box-shadow: none !important;
+  border: none !important;
 }
 
+.header-right .user-info,
 .header-right .user-info:focus,
 .header-right .user-info:focus-visible,
 .header-right .user-info:active {
   outline: none !important;
   box-shadow: none !important;
+  border: none !important;
 }
 
 /* 覆盖 Element Plus 默认的 focus 样式 */
-.el-dropdown-link:focus-visible {
+.el-dropdown-link:focus-visible,
+[class*="el-"]:focus-visible {
   outline: none !important;
+}
+
+/* 下拉菜单容器 */
+.el-dropdown__popper,
+.el-dropdown__popper.el-popper {
+  border: none !important;
+}
+
+.el-dropdown__popper.el-popper[data-popper-placement] {
+  background: transparent !important;
 }
 
