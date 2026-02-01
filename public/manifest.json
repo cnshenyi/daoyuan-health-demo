@@ -4,8 +4,8 @@
   "description": "国际健康跟踪管理系统",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#1890ff",
+  "background_color": "#1E3A5F",
+  "theme_color": "#1E3A5F",
   "orientation": "portrait",
   "icons": [
     {
