@@ -412,6 +412,42 @@ const handleLogout = () => {
   display: none !important;
 }
 
+/* 非 teleported 模式下的下拉菜单 */
+.header-right .el-dropdown__popper {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.header-right .el-dropdown__popper .el-dropdown-menu {
+  background: linear-gradient(135deg, #1a2a4a 0%, #243656 100%) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 8px !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4) !important;
+}
+
+.header-right .el-dropdown__popper .el-dropdown-menu__item {
+  color: rgba(255, 255, 255, 0.9) !important;
+  border-radius: 8px !important;
+  padding: 12px 16px !important;
+  margin: 2px 0 !important;
+}
+
+.header-right .el-dropdown__popper .el-dropdown-menu__item:hover {
+  background: rgba(201, 169, 98, 0.15) !important;
+  color: #C9A962 !important;
+}
+
+.header-right .el-dropdown__popper .el-dropdown-menu__item .el-icon {
+  color: #C9A962 !important;
+}
+
+.header-right .el-dropdown__popper .el-dropdown-menu__item--divided {
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  margin-top: 8px !important;
+}
+
 .username {
   margin-left: var(--spacing-md);
   font-size: var(--font-size-sm);
