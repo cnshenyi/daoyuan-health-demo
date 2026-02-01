@@ -1,0 +1,494 @@
+/* ========================================
+   道远医疗 - 高端医疗风格设计系统
+   ======================================== */
+
+/* 导入优雅字体 */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* 主色调 - 深蓝色（专业、信任） */
+  --color-primary: #1E3A5F;
+  --color-primary-light: #2A4F7F;
+  --color-primary-dark: #152B47;
+  --color-primary-lighter: #3A5F8F;
+  --color-primary-alpha: rgba(30, 58, 95, 0.1);
+
+  /* 辅助色 - 金色（高端、尊贵） */
+  --color-secondary: #C9A962;
+  --color-secondary-light: #D4B87A;
+  --color-secondary-dark: #B89850;
+  --color-secondary-alpha: rgba(201, 169, 98, 0.1);
+
+  /* 强调色 - 翠绿（健康、生命力） */
+  --color-accent: #2E8B57;
+  --color-accent-light: #3FA76F;
+  --color-accent-dark: #236F45;
+  --color-accent-alpha: rgba(46, 139, 87, 0.1);
+
+  /* 背景色 */
+  --color-bg-primary: #FAFBFC;
+  --color-bg-secondary: #FFFFFF;
+  --color-bg-tertiary: #F5F7FA;
+  --color-bg-cream: #FBF9F6;
+
+  /* 文字颜色 */
+  --color-text-primary: #1E3A5F;
+  --color-text-secondary: #5A6C7D;
+  --color-text-tertiary: #8B9AA8;
+  --color-text-light: #FFFFFF;
+
+  /* 状态颜色 */
+  --color-success: #2E8B57;
+  --color-warning: #E6A23C;
+  --color-danger: #F56C6C;
+  --color-info: #909399;
+
+  /* 边框和分割线 */
+  --color-border: #E4E7EB;
+  --color-border-light: #F0F2F5;
+
+  /* 阴影 - 更柔和的阴影 */
+  --shadow-sm: 0 2px 12px rgba(30, 58, 95, 0.06);
+  --shadow-md: 0 8px 24px rgba(30, 58, 95, 0.08);
+  --shadow-lg: 0 16px 48px rgba(30, 58, 95, 0.12);
+  --shadow-xl: 0 24px 64px rgba(30, 58, 95, 0.16);
+
+  /* 圆角 */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+
+  /* 间距 */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+
+  /* 字体大小 */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 22px;
+  --font-size-2xl: 28px;
+  --font-size-3xl: 36px;
+  --font-size-4xl: 48px;
+
+  /* 字体家族 */
+  --font-display: 'Playfair Display', 'Noto Serif SC', serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-md);
+  line-height: 1.6;
+}
+
+/* 标题使用优雅的衬线字体 */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-text-primary);
+}
+
+/* ========================================
+   页面布局样式
+   ======================================== */
+.page-container {
+  padding: var(--spacing-md);
+  max-width: 1200px;
+  margin: 0 auto;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-header {
+  margin-bottom: var(--spacing-lg);
+}
+
+.page-title {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-xs);
+  font-family: var(--font-display);
+  letter-spacing: -0.5px;
+}
+
+.page-description {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* ========================================
+   卡片样式 - 高端医疗风格
+   ======================================== */
+.medical-card {
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.medical-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary), var(--color-accent));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.medical-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+
+.medical-card:hover::before {
+  opacity: 1;
+}
+
+.medical-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.medical-card-title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  font-family: var(--font-display);
+  letter-spacing: -0.3px;
+}
+
+/* ========================================
+   按钮样式 - 移动优先
+   ======================================== */
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  color: var(--color-text-light);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 48px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  background: var(--color-secondary);
+  color: var(--color-text-light);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 48px;
+}
+
+.btn-accent {
+  background: var(--color-accent);
+  color: var(--color-text-light);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 48px;
+}
+
+/* ========================================
+   移动端响应式样式
+   ======================================== */
+@media (max-width: 768px) {
+  .page-container {
+    padding: var(--spacing-sm);
+  }
+
+  .page-title {
+    font-size: var(--font-size-lg);
+  }
+
+  .page-description {
+    font-size: var(--font-size-xs);
+  }
+
+  /* 卡片在移动端更紧凑 */
+  .el-card,
+  .medical-card {
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-sm);
+    padding: var(--spacing-md);
+  }
+
+  .el-card__header {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .el-card__body {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  /* 表格移动端适配 */
+  .el-table {
+    font-size: var(--font-size-sm);
+  }
+
+  .el-table th,
+  .el-table td {
+    padding: var(--spacing-sm);
+  }
+
+  /* 按钮更易触摸 */
+  .el-button {
+    min-height: 44px;
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: var(--font-size-md);
+    border-radius: var(--radius-md);
+  }
+
+  .el-button--large {
+    min-height: 48px;
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-size: var(--font-size-lg);
+  }
+
+  .el-button--small {
+    min-height: 36px;
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  /* 表单项 */
+  .el-form-item {
+    margin-bottom: var(--spacing-md);
+  }
+
+  /* 输入框 */
+  .el-input__inner {
+    height: 44px;
+    line-height: 44px;
+    font-size: var(--font-size-md);
+    border-radius: var(--radius-md);
+  }
+
+  /* 对话框 */
+  .el-dialog {
+    width: 90% !important;
+    margin: var(--spacing-lg) auto !important;
+    border-radius: var(--radius-lg);
+  }
+
+  /* 抽屉 */
+  .el-drawer {
+    width: 85% !important;
+  }
+
+  /* 消息框 */
+  .el-message-box {
+    width: 90% !important;
+    max-width: 400px;
+    border-radius: var(--radius-lg);
+  }
+
+  /* 标签页 */
+  .el-tabs__item {
+    padding: 0 var(--spacing-md);
+    font-size: var(--font-size-sm);
+  }
+
+  /* 分页 */
+  .el-pagination {
+    padding: var(--spacing-md) 0;
+  }
+
+  .el-pagination button,
+  .el-pagination .el-pager li {
+    min-width: 36px;
+    height: 36px;
+    line-height: 36px;
+  }
+}
+
+/* ========================================
+   超小屏幕设备
+   ======================================== */
+@media (max-width: 480px) {
+  .page-container {
+    padding: var(--spacing-xs);
+  }
+
+  .page-header {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .page-title {
+    font-size: var(--font-size-md);
+  }
+
+  .page-description {
+    font-size: 10px;
+  }
+
+  .el-card,
+  .medical-card {
+    margin-bottom: var(--spacing-xs);
+    padding: var(--spacing-sm);
+  }
+
+  .el-card__header {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .el-card__body {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  /* 隐藏不重要的表格列 */
+  .el-table .hidden-xs-only {
+    display: none !important;
+  }
+}
+
+/* ========================================
+   平滑滚动和自定义滚动条
+   ======================================== */
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-tertiary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-text-tertiary);
+  border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-secondary);
+}
+
+/* ========================================
+   Element Plus 主题覆盖 - 高端医疗风格
+   ======================================== */
+.el-button--primary {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.el-button--primary:hover,
+.el-button--primary:focus {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary-light);
+}
+
+.el-card {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: none;
+}
+
+.el-tag {
+  border-radius: var(--radius-sm);
+}
+
+.el-input__wrapper {
+  border-radius: var(--radius-md);
+}
+
+/* ========================================
+   工具类
+   ======================================== */
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-secondary {
+  color: var(--color-secondary);
+}
+
+.text-accent {
+  color: var(--color-accent);
+}
+
+.text-success {
+  color: var(--color-success);
+}
+
+.text-warning {
+  color: var(--color-warning);
+}
+
+.text-danger {
+  color: var(--color-danger);
+}
+
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+
+.bg-accent {
+  background-color: var(--color-accent);
+}
+

@@ -1,0 +1,484 @@
+<template>
+  <el-container class="layout-container">
+    <!-- Desktop Sidebar -->
+    <el-aside width="250px" class="sidebar desktop-only">
+      <div class="logo">
+        <h2>道远医疗</h2>
+        <p>国际健康跟踪管理系统</p>
+      </div>
+      <el-menu
+        :default-active="activeMenu"
+        class="sidebar-menu"
+        router
+      >
+        <el-menu-item index="/">
+          <el-icon><HomeFilled /></el-icon>
+          <span>首页</span>
+        </el-menu-item>
+        <el-menu-item index="/health-records">
+          <el-icon><Document /></el-icon>
+          <span>健康档案</span>
+        </el-menu-item>
+        <el-menu-item index="/glucose-monitoring">
+          <el-icon><TrendCharts /></el-icon>
+          <span>血糖监测</span>
+        </el-menu-item>
+        <el-menu-item index="/progress-notes">
+          <el-icon><Notebook /></el-icon>
+          <span>病程记录</span>
+        </el-menu-item>
+        <el-menu-item index="/team-collaboration">
+          <el-icon><User /></el-icon>
+          <span>团队协作</span>
+        </el-menu-item>
+        <el-menu-item index="/service-projects">
+          <el-icon><List /></el-icon>
+          <span>服务项目</span>
+        </el-menu-item>
+        <el-menu-item index="/messages">
+          <el-icon><ChatDotRound /></el-icon>
+          <span>消息中心</span>
+          <span v-if="messageStore.unreadCount > 0" class="menu-badge">{{ messageStore.unreadCount }}</span>
+        </el-menu-item>
+      </el-menu>
+    </el-aside>
+
+    <el-container>
+      <!-- Header -->
+      <el-header class="header">
+        <!-- Mobile Logo -->
+        <div class="mobile-logo mobile-only">
+          <img src="/images/logo-white.png" alt="道远医疗" class="header-logo-img" />
+        </div>
+
+        <el-breadcrumb separator="/" class="desktop-only">
+          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+          <el-breadcrumb-item v-if="currentRouteName !== 'Dashboard'">
+            {{ currentRouteName }}
+          </el-breadcrumb-item>
+        </el-breadcrumb>
+
+        <!-- Mobile Title (hide on Dashboard) -->
+        <div class="mobile-title mobile-only" v-if="route.name !== 'Dashboard'">
+          <h3>{{ currentRouteName }}</h3>
+        </div>
+
+        <div class="header-right">
+          <el-dropdown>
+            <div class="user-info">
+              <el-avatar :src="userStore.user?.avatar" />
+              <span class="username desktop-only">{{ userStore.user?.name }}</span>
+            </div>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item>
+                  <el-icon><User /></el-icon>
+                  个人信息
+                </el-dropdown-item>
+                <el-dropdown-item divided @click="handleLogout">
+                  <el-icon><SwitchButton /></el-icon>
+                  退出登录
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </div>
+      </el-header>
+
+      <!-- Main Content -->
+      <el-main class="main-content">
+        <router-view />
+      </el-main>
+
+      <!-- Mobile Bottom Navigation -->
+      <div class="bottom-nav mobile-only">
+        <div
+          v-for="item in navItems"
+          :key="item.path"
+          :class="['nav-item', { active: activeMenu === item.path }]"
+          @click="navigateTo(item.path)"
+        >
+          <div class="nav-icon-wrapper">
+            <el-icon :size="24">
+              <component :is="item.icon" />
+            </el-icon>
+            <span v-if="item.path === '/messages' && messageStore.unreadCount > 0" class="nav-badge">
+              {{ messageStore.unreadCount > 99 ? '99+' : messageStore.unreadCount }}
+            </span>
+          </div>
+          <span class="nav-label">{{ item.label }}</span>
+        </div>
+      </div>
+    </el-container>
+  </el-container>
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/user'
+import { useMessageStore } from '@/stores/message'
+import { ElMessage } from 'element-plus'
+import {
+  HomeFilled,
+  Document,
+  TrendCharts,
+  Notebook,
+  User,
+  List,
+  ChatDotRound
+} from '@element-plus/icons-vue'
+
+const route = useRoute()
+const router = useRouter()
+const userStore = useUserStore()
+const messageStore = useMessageStore()
+
+const activeMenu = computed(() => route.path)
+
+const routeNameMap: Record<string, string> = {
+  'Dashboard': '首页',
+  'HealthRecords': '健康档案',
+  'GlucoseMonitoring': '血糖监测',
+  'ProgressNotes': '病程记录',
+  'TeamCollaboration': '团队协作',
+  'ServiceProjects': '服务项目',
+  'MembershipBenefits': '会员权益',
+  'Messages': '消息中心'
+}
+
+const currentRouteName = computed(() => {
+  const name = route.name as string
+  return routeNameMap[name] || name
+})
+
+const navItems = [
+  { path: '/', label: '首页', icon: HomeFilled },
+  { path: '/glucose-monitoring', label: '血糖', icon: TrendCharts },
+  { path: '/team-collaboration', label: '团队', icon: User },
+  { path: '/service-projects', label: '服务', icon: List },
+  { path: '/messages', label: '消息', icon: ChatDotRound }
+]
+
+const navigateTo = (path: string) => {
+  router.push(path)
+}
+
+const handleLogout = () => {
+  userStore.logout()
+  ElMessage.success('退出登录成功')
+  router.push('/login')
+}
+</script>
+
+<style scoped>
+.layout-container {
+  height: 100vh;
+  background-color: var(--color-bg-primary);
+}
+
+/* ========================================
+   桌面端侧边栏
+   ======================================== */
+.sidebar {
+  background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  color: var(--color-text-light);
+  overflow-y: auto;
+  box-shadow: var(--shadow-md);
+}
+
+.logo {
+  padding: var(--spacing-xl) var(--spacing-lg);
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.logo h2 {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-text-light);
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.logo p {
+  font-size: var(--font-size-xs);
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+}
+
+.sidebar-menu {
+  border-right: none;
+  background-color: transparent;
+  padding: var(--spacing-md) 0;
+}
+
+.sidebar-menu :deep(.el-menu-item) {
+  color: rgba(255, 255, 255, 0.8);
+  margin: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.sidebar-menu :deep(.el-menu-item:hover) {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--color-text-light);
+  transform: translateX(4px);
+}
+
+.sidebar-menu :deep(.el-menu-item.is-active) {
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
+  color: var(--color-text-light);
+  box-shadow: 0 4px 12px rgba(46, 139, 87, 0.3);
+}
+
+.sidebar-menu :deep(.el-menu-item .el-icon) {
+  font-size: var(--font-size-lg);
+  margin-right: var(--spacing-sm);
+}
+
+/* ========================================
+   顶部 Header
+   ======================================== */
+.header {
+  background: linear-gradient(135deg, #1E3A5F 0%, #2A4F7F 100%);
+  border-bottom: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--spacing-xl);
+  box-shadow: 0 4px 16px rgba(30, 58, 95, 0.2);
+}
+
+.mobile-logo {
+  display: none;
+}
+
+.header-logo-img {
+  height: 32px;
+  width: auto;
+  filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.2));
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  transition: all 0.3s ease;
+}
+
+.user-info:hover {
+  background-color: var(--color-bg-tertiary);
+}
+
+.username {
+  margin-left: var(--spacing-md);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+/* ========================================
+   主内容区域
+   ======================================== */
+.main-content {
+  background-color: var(--color-bg-primary);
+  overflow-y: auto;
+  padding: var(--spacing-md);
+}
+
+/* ========================================
+   移动端底部导航栏 - 高端医疗风格
+   ======================================== */
+.bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--color-bg-secondary);
+  border-top: 1px solid var(--color-border-light);
+  box-shadow: 0 -4px 16px rgba(30, 58, 95, 0.08);
+  z-index: 1000;
+  padding: var(--spacing-sm) 0;
+  backdrop-filter: blur(10px);
+}
+
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-sm) 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--color-text-tertiary);
+  position: relative;
+}
+
+.nav-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  transition: width 0.3s ease;
+}
+
+.nav-item.active {
+  color: var(--color-primary);
+}
+
+.nav-item.active::before {
+  width: 40px;
+}
+
+.nav-item :deep(.el-icon) {
+  font-size: 24px;
+  margin-bottom: var(--spacing-xs);
+  transition: all 0.3s ease;
+}
+
+.nav-item.active :deep(.el-icon) {
+  color: var(--color-accent);
+  transform: scale(1.1);
+}
+
+.nav-label {
+  font-size: var(--font-size-xs);
+  margin-top: var(--spacing-xs);
+  font-weight: 500;
+}
+
+.nav-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  background: #E53935;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 600;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-badge {
+  margin-left: auto;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 6px;
+  background: #E53935;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 600;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-title {
+  display: none;
+}
+
+.mobile-title h3 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+/* ========================================
+   响应式设计 - 移动优先
+   ======================================== */
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none !important;
+  }
+
+  .mobile-only {
+    display: flex !important;
+  }
+
+  .mobile-logo {
+    display: flex !important;
+  }
+
+  .bottom-nav {
+    display: flex;
+  }
+
+  .layout-container {
+    height: 100vh;
+  }
+
+  .header {
+    padding: 0 var(--spacing-md);
+    height: 56px !important;
+  }
+
+  .main-content {
+    padding: var(--spacing-sm);
+    padding-bottom: 80px;
+  }
+
+  .user-info {
+    padding: var(--spacing-xs);
+  }
+
+  /* Element Plus 组件移动端适配 */
+  :deep(.el-card) {
+    margin-bottom: var(--spacing-md);
+    border-radius: var(--radius-lg);
+  }
+
+  :deep(.el-table) {
+    font-size: var(--font-size-sm);
+  }
+
+  :deep(.el-button) {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+  }
+}
+
+/* ========================================
+   桌面端
+   ======================================== */
+@media (min-width: 769px) {
+  .mobile-only {
+    display: none !important;
+  }
+
+  .desktop-only {
+    display: flex !important;
+  }
+}
+</style>
