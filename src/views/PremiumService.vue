@@ -5,7 +5,9 @@
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <div class="hero-badge">
-          <span class="badge-icon">👑</span>
+          <svg class="badge-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/>
+          </svg>
           <span class="badge-text">至尊专享</span>
         </div>
         <h1 class="hero-title">国际高端康养</h1>
@@ -30,7 +32,11 @@
     <!-- 行程安排 -->
     <div class="section itinerary-section">
       <div class="section-header">
-        <div class="section-icon">✈️</div>
+        <div class="section-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+          </svg>
+        </div>
         <h3 class="section-title">澳大利亚10日高端康养旅行</h3>
       </div>
       
@@ -50,14 +56,20 @@
     <!-- 干细胞疗法 -->
     <div class="section therapy-section">
       <div class="section-header">
-        <div class="section-icon">🔬</div>
+        <div class="section-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7 19c-1.1 0-2 .9-2 2h14c0-1.1-.9-2-2-2h-4v-2h3c1.1 0 2-.9 2-2h-8c-1.66 0-3-1.34-3-3 0-1.09.59-2.04 1.46-2.56C8.17 9.03 8 8.54 8 8c0-.21.02-.42.05-.62C6.83 8.36 6 9.84 6 11.5c0 2.21 1.79 4 4 4h.5v2H7v1.5zm5-15c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1m0-2c-1.66 0-3 1.34-3 3 0 .35.06.69.17 1H9c-1.1 0-2 .9-2 2v1h2V8c0-.55.45-1 1-1h4c.55 0 1 .45 1 1v1h2V8c0-1.1-.9-2-2-2h-.17c.11-.31.17-.65.17-1 0-1.66-1.34-3-3-3z"/>
+          </svg>
+        </div>
         <h3 class="section-title">顶级干细胞再生疗法 svCell</h3>
       </div>
 
       <!-- 系统性诊疗 -->
       <div class="therapy-category">
         <div class="category-header">
-          <span class="category-icon">🏥</span>
+          <svg class="category-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 3H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"/>
+          </svg>
           <span class="category-title">系统性诊疗</span>
         </div>
         <div class="therapy-grid">
@@ -71,7 +83,9 @@
       <!-- 综合性调理 -->
       <div class="therapy-category">
         <div class="category-header">
-          <span class="category-icon">💊</span>
+          <svg class="category-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M4.22 11.29l5.66-5.66c1.56-1.56 4.1-1.56 5.66 0l2.83 2.83c1.56 1.56 1.56 4.1 0 5.66l-5.66 5.66c-1.56 1.56-4.1 1.56-5.66 0l-2.83-2.83c-1.56-1.56-1.56-4.1 0-5.66zm1.41 4.24l2.83 2.83c.78.78 2.05.78 2.83 0l2.83-2.83-5.66-5.66-2.83 2.83c-.78.78-.78 2.05 0 2.83z"/>
+          </svg>
           <span class="category-title">综合性调理</span>
         </div>
         <div class="therapy-list">
@@ -89,28 +103,48 @@
     <!-- 服务特色 -->
     <div class="section features-section">
       <div class="section-header">
-        <div class="section-icon">⭐</div>
+        <div class="section-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+          </svg>
+        </div>
         <h3 class="section-title">至尊服务特色</h3>
       </div>
       
       <div class="features-grid">
         <div class="feature-card">
-          <div class="feature-icon">🛫</div>
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+          </div>
           <div class="feature-title">全程专属陪同</div>
           <div class="feature-desc">私人健康管家全程陪护</div>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">🏨</div>
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+            </svg>
+          </div>
           <div class="feature-title">五星级住宿</div>
           <div class="feature-desc">精选澳洲顶级酒店</div>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">👨‍⚕️</div>
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 8c-1.66 0-3 1.34-3 3 0 .79.31 1.5.81 2.03-.49 2.43-2.17 4.34-4.81 4.87V13c2.21 0 4-1.79 4-4V4h-2v5c0 1.1-.9 2-2 2s-2-.9-2-2V4H8v5c0 2.21 1.79 4 4 4v4.9c-2.64-.53-4.32-2.44-4.81-4.87.5-.53.81-1.24.81-2.03 0-1.66-1.34-3-3-3s-3 1.34-3 3c0 1.31.84 2.41 2 2.83V15c0 3.52 2.94 6.5 6.5 6.5S17 18.52 17 15v-2.17c1.16-.42 2-1.52 2-2.83 0-1.66-1.34-3-3-3z"/>
+            </svg>
+          </div>
           <div class="feature-title">顶级医疗团队</div>
           <div class="feature-desc">澳洲权威专家诊疗</div>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">🌿</div>
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.66 8L12 2.35 6.34 8C4.78 9.56 4 11.64 4 13.64s.78 4.11 2.34 5.67 3.61 2.35 5.66 2.35 4.1-.79 5.66-2.35S20 15.64 20 13.64 19.22 9.56 17.66 8zM6 14c.01-2 .62-3.27 1.76-4.4L12 5.27l4.24 4.38C17.38 10.77 17.99 12 18 14H6z"/>
+            </svg>
+          </div>
           <div class="feature-title">康养结合</div>
           <div class="feature-desc">医疗与旅游完美融合</div>
         </div>
@@ -120,7 +154,9 @@
     <!-- 联系按钮 -->
     <div class="contact-section">
       <button class="contact-btn" @click="contactAdvisor">
-        <span class="btn-icon">📞</span>
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+        </svg>
         <span class="btn-text">联系专属健康顾问</span>
       </button>
       <p class="contact-note">专业顾问将在24小时内与您联系</p>
@@ -229,7 +265,9 @@ const goBack = () => {
 }
 
 .badge-icon {
-  font-size: 16px;
+  width: 18px;
+  height: 18px;
+  color: #C9A962;
 }
 
 .badge-text {
@@ -333,7 +371,14 @@ const goBack = () => {
 }
 
 .section-icon {
-  font-size: 24px;
+  width: 28px;
+  height: 28px;
+  color: #C9A962;
+}
+
+.section-icon svg {
+  width: 100%;
+  height: 100%;
 }
 
 .section-title {
@@ -428,7 +473,9 @@ const goBack = () => {
 }
 
 .category-icon {
-  font-size: 20px;
+  width: 22px;
+  height: 22px;
+  color: #C9A962;
 }
 
 .category-title {
@@ -539,8 +586,15 @@ const goBack = () => {
 }
 
 .feature-icon {
-  font-size: 32px;
-  margin-bottom: 12px;
+  width: 36px;
+  height: 36px;
+  margin: 0 auto 12px;
+  color: #C9A962;
+}
+
+.feature-icon svg {
+  width: 100%;
+  height: 100%;
 }
 
 .feature-title {
@@ -587,7 +641,9 @@ const goBack = () => {
 }
 
 .btn-icon {
-  font-size: 20px;
+  width: 22px;
+  height: 22px;
+  color: #1a2a4a;
 }
 
 .btn-text {
