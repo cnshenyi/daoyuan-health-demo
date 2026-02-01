@@ -48,9 +48,14 @@
       <div v-if="isIOSPWA" class="ios-status-bar-spacer"></div>
       <!-- Header -->
       <el-header class="header">
-        <!-- Mobile Logo -->
-        <div class="mobile-logo mobile-only">
-          <img src="/images/logo-white.png" alt="道远医疗" class="header-logo-img" />
+        <!-- Mobile: 返回按钮（子页面）或 Logo（首页） -->
+        <div class="mobile-header-left mobile-only">
+          <button v-if="isSubPage" class="back-btn" @click="router.back()">
+            <svg viewBox="0 0 24 24" fill="none" class="back-icon">
+              <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <img v-else src="/images/logo-white.png" alt="道远医疗" class="header-logo-img" />
         </div>
 
         <el-breadcrumb separator="/" class="desktop-only">
@@ -137,6 +142,10 @@ const userStore = useUserStore()
 const messageStore = useMessageStore()
 
 const activeMenu = computed(() => route.path)
+
+// 检测是否是子页面（非首页和非底部导航的主页面）
+const mainPages = ['/', '/health-records', '/glucose-monitoring', '/progress-notes', '/team-collaboration', '/service-projects', '/messages']
+const isSubPage = computed(() => !mainPages.includes(route.path))
 
 // 检测是否是 iOS PWA standalone 模式
 const isIOSPWA = computed(() => {
@@ -274,8 +283,35 @@ const handleLogout = () => {
   box-shadow: 0 4px 16px rgba(30, 58, 95, 0.2);
 }
 
-.mobile-logo {
+.mobile-header-left {
   display: none;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.back-btn:active {
+  transform: scale(0.95);
+}
+
+.back-icon {
+  width: 20px;
+  height: 20px;
+  color: white;
 }
 
 .header-logo-img {
@@ -448,7 +484,7 @@ const handleLogout = () => {
     display: flex !important;
   }
 
-  .mobile-logo {
+  .mobile-header-left {
     display: flex !important;
   }
 
