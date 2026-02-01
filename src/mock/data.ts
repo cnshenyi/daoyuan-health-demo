@@ -19,7 +19,7 @@ export const mockUser: User = {
   email: 'shenyi@example.com',
   phone: '+86 138 0000 0000',
   membershipType: 'premium',
-  membershipStartDate: '2025-12-01',
+  membershipStartDate: '2025-06-01',
   avatar: '/avatar-shenyi.jpg'
 }
 
@@ -33,7 +33,7 @@ export const mockMemberInfo: MemberInfo = {
   maritalStatus: '已婚',
   membershipType: 'premium',
   membershipFee: 1200000,
-  joinDate: '2025-12-01'
+  joinDate: '2025-06-01'
 }
 
 // 病史信息
