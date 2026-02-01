@@ -187,25 +187,25 @@
       >
         <div class="medical-card-header">
           <div>
-            <h3 class="medical-card-title">{{ test.testName }}</h3>
-            <p class="test-date">{{ test.date }} · {{ test.hospital }}</p>
+            <h3 class="medical-card-title">{{ test.name }}</h3>
+            <p class="test-date">{{ test.date }} · {{ test.category }}</p>
           </div>
         </div>
         <div class="test-results">
           <div
-            v-for="result in test.results"
-            :key="result.item"
+            v-for="item in test.items"
+            :key="item.name"
             class="test-result-item"
           >
             <div class="result-header">
-              <span class="result-name">{{ result.item }}</span>
-              <span :class="['result-status', result.status]">
-                {{ result.status === 'normal' ? '正常' : result.status === 'high' ? '偏高' : '偏低' }}
+              <span class="result-name">{{ item.name }}</span>
+              <span :class="['result-status', item.status]">
+                {{ item.status === 'normal' ? '正常' : item.status === 'high' ? '偏高' : '偏低' }}
               </span>
             </div>
             <div class="result-details">
-              <span class="result-value">{{ result.value }} {{ result.unit }}</span>
-              <span class="result-range">参考范围: {{ result.normalRange }}</span>
+              <span class="result-value">{{ item.value }} {{ item.unit }}</span>
+              <span class="result-range">参考范围: {{ item.normalRange }}</span>
             </div>
           </div>
         </div>

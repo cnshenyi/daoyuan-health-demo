@@ -164,7 +164,6 @@
 import { computed, ref, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useUserStore } from '@/stores/user'
-import { useHealthStore } from '@/stores/health'
 import { useGlucoseStore } from '@/stores/glucose'
 import { useProgressStore } from '@/stores/progress'
 import { useTeamStore } from '@/stores/team'
@@ -172,7 +171,6 @@ import { usePullToRefresh } from '@/composables/usePullToRefresh'
 import PullToRefreshIndicator from '@/components/PullToRefreshIndicator.vue'
 
 const userStore = useUserStore()
-const healthStore = useHealthStore()
 const glucoseStore = useGlucoseStore()
 const progressStore = useProgressStore()
 const teamStore = useTeamStore()
