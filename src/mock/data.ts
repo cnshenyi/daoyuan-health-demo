@@ -20,7 +20,7 @@ export const mockUser: User = {
   phone: '+86 138 0000 0000',
   membershipType: 'premium',
   membershipStartDate: '2025-12-01',
-  avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face'
+  avatar: '/avatar-shenyi.jpg'
 }
 
 // 会员信息

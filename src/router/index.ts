@@ -58,6 +58,11 @@ const routes: RouteRecordRaw[] = [
         path: 'premium-service',
         name: 'PremiumService',
         component: () => import('@/views/PremiumService.vue')
+      },
+      {
+        path: 'profile',
+        name: 'Profile',
+        component: () => import('@/views/Profile.vue')
       }
     ]
   }

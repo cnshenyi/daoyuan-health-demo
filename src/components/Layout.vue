@@ -71,14 +71,14 @@
         </div>
 
         <div class="header-right">
-          <el-dropdown>
+          <el-dropdown popper-class="user-dropdown-popper">
             <div class="user-info">
               <el-avatar :src="userStore.user?.avatar" />
               <span class="username desktop-only">{{ userStore.user?.name }}</span>
             </div>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item>
+                <el-dropdown-item @click="goToProfile">
                   <el-icon><User /></el-icon>
                   个人信息
                 </el-dropdown-item>
@@ -166,7 +166,8 @@ const routeNameMap: Record<string, string> = {
   'ServiceProjects': '服务项目',
   'MembershipBenefits': '会员权益',
   'Messages': '消息中心',
-  'PremiumService': '至尊服务'
+  'PremiumService': '至尊服务',
+  'Profile': '个人信息'
 }
 
 const currentRouteName = computed(() => {
@@ -184,6 +185,10 @@ const navItems = [
 
 const navigateTo = (path: string) => {
   router.push(path)
+}
+
+const goToProfile = () => {
+  router.push('/profile')
 }
 
 const handleLogout = () => {
@@ -334,6 +339,18 @@ const handleLogout = () => {
   padding: var(--spacing-sm) var(--spacing-md);
   border-radius: var(--radius-md);
   transition: all 0.3s ease;
+  outline: none;
+}
+
+.user-info:focus,
+.user-info:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.user-info :deep(.el-avatar) {
+  border: none;
+  box-shadow: none;
 }
 
 .user-info:hover {
