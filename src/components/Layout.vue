@@ -143,8 +143,9 @@ const messageStore = useMessageStore()
 
 const activeMenu = computed(() => route.path)
 
-// 检测是否是子页面（非首页和非底部导航的主页面）
-const mainPages = ['/', '/health-records', '/glucose-monitoring', '/progress-notes', '/team-collaboration', '/service-projects', '/messages']
+// 检测是否是子页面（非底部导航的主页面）
+// 底部导航只有：首页、血糖、团队、服务、消息
+const mainPages = ['/', '/glucose-monitoring', '/team-collaboration', '/service-projects', '/messages']
 const isSubPage = computed(() => !mainPages.includes(route.path))
 
 // 检测是否是 iOS PWA standalone 模式

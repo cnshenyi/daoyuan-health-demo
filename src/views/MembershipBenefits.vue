@@ -1,16 +1,5 @@
 <template>
   <div class="page-container membership-benefits">
-    <!-- 顶部返回导航 -->
-    <div class="nav-header">
-      <button class="back-btn" @click="goBack">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M19 12H5M12 19l-7-7 7-7"/>
-        </svg>
-      </button>
-      <h1 class="nav-title">会员权益</h1>
-      <div class="nav-placeholder"></div>
-    </div>
-
     <!-- 会员等级展示 -->
     <div class="membership-hero">
       <div class="hero-bg"></div>
@@ -169,15 +158,9 @@
 
 <script setup lang="ts">
 import { h } from 'vue'
-import { useRouter } from 'vue-router'
 import { useHealthStore } from '@/stores/health'
 
-const router = useRouter()
 const healthStore = useHealthStore()
-
-const goBack = () => {
-  router.push('/service-projects')
-}
 
 // 图标组件
 const IconShield = () => h('svg', { viewBox: '0 0 24 24', fill: 'currentColor' }, [
@@ -262,52 +245,6 @@ const serviceDetails = [
   padding: 0;
   background: var(--color-bg-primary);
   min-height: 100vh;
-}
-
-/* 导航头部 */
-.nav-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--spacing-md);
-  background: linear-gradient(135deg, #1E3A5F 0%, #2A4F7F 100%);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.back-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.back-btn svg {
-  width: 20px;
-  height: 20px;
-  color: white;
-}
-
-.back-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.nav-title {
-  font-size: var(--font-size-lg);
-  font-weight: 600;
-  color: white;
-  font-family: var(--font-display);
-}
-
-.nav-placeholder {
-  width: 36px;
 }
 
 /* 会员等级展示 */
