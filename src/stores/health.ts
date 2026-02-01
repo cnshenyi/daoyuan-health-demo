@@ -52,8 +52,8 @@ const mockCheckupReports: CheckupReport[] = [
   },
   {
     id: '2',
-    title: '2025年中健康体检',
-    date: '2025-06-20',
+    title: '入会健康体检',
+    date: '2025-06-15',
     status: 'normal',
     summary: '各项指标正常，继续保持良好的生活习惯。',
     items: [
@@ -71,7 +71,7 @@ const mockLabTests: LabTest[] = [
   {
     id: '1',
     name: '糖化血红蛋白检测',
-    date: '2025-12-28',
+    date: '2026-01-28',
     category: '血糖监测',
     items: [
       { name: 'HbA1c', value: '6.5', unit: '%', normalRange: '<6.0', status: 'high' },
@@ -103,7 +103,7 @@ const mockLabTests: LabTest[] = [
   {
     id: '4',
     name: '血脂检查',
-    date: '2025-12-15',
+    date: '2025-09-15',
     category: '心血管',
     items: [
       { name: '总胆固醇', value: '5.2', unit: 'mmol/L', normalRange: '<5.2', status: 'normal' },

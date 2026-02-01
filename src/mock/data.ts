@@ -19,7 +19,7 @@ export const mockUser: User = {
   email: 'shenyi@example.com',
   phone: '+86 138 0000 0000',
   membershipType: 'premium',
-  membershipStartDate: '2025-02-01',
+  membershipStartDate: '2025-12-01',
   avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face'
 }
 
@@ -33,7 +33,7 @@ export const mockMemberInfo: MemberInfo = {
   maritalStatus: '已婚',
   membershipType: 'premium',
   membershipFee: 1700000,
-  joinDate: '2025-02-01'
+  joinDate: '2025-12-01'
 }
 
 // 病史信息
@@ -57,7 +57,7 @@ export const mockMedicalTests: MedicalTest[] = [
     id: '1',
     type: 'blood',
     name: '血常规检查',
-    date: '2025-03-01-15',
+    date: '2025-12-15',
     result: '基本正常',
     status: 'normal',
     details: {
@@ -72,7 +72,7 @@ export const mockMedicalTests: MedicalTest[] = [
     id: '2',
     type: 'glucose-lipid',
     name: '血糖血脂检查',
-    date: '2025-03-01-15',
+    date: '2025-12-15',
     result: '血糖偏高',
     status: 'abnormal',
     details: {
@@ -90,7 +90,7 @@ export const mockMedicalTests: MedicalTest[] = [
     id: '3',
     type: 'liver',
     name: '肝功能检查',
-    date: '2025-03-01-15',
+    date: '2025-12-15',
     result: '正常',
     status: 'normal',
     details: {
@@ -105,7 +105,7 @@ export const mockMedicalTests: MedicalTest[] = [
     id: '4',
     type: 'kidney',
     name: '肾功能检查',
-    date: '2025-03-01-15',
+    date: '2025-12-15',
     result: '正常',
     status: 'normal',
     details: {
@@ -119,7 +119,7 @@ export const mockMedicalTests: MedicalTest[] = [
     id: '5',
     type: 'xray',
     name: '胸部X光检查',
-    date: '2025-03-01-10',
+    date: '2025-12-10',
     result: '未见明显异常',
     status: 'normal',
     details: {
@@ -178,7 +178,7 @@ export const mockGlucoseReadings: GlucoseReading[] = generateGlucoseReadings()
 export const mockProgressNotes: ProgressNote[] = [
   {
     id: '1',
-    date: '2025-03-01-20',
+    date: '2025-12-01-20',
     type: 'consultation',
     title: '全科医生视频咨询',
     content: '患者血糖控制情况良好，但仍需注意饮食控制。建议继续当前用药方案，增加运动量。',
@@ -188,7 +188,7 @@ export const mockProgressNotes: ProgressNote[] = [
   },
   {
     id: '2',
-    date: '2025-03-01-18',
+    date: '2025-12-01-18',
     type: 'medication-change',
     title: '药物调整',
     content: '根据最新血糖监测数据，调整二甲双胍剂量从500mg增加到850mg，每日两次。',
@@ -198,7 +198,7 @@ export const mockProgressNotes: ProgressNote[] = [
   },
   {
     id: '3',
-    date: '2025-03-01-15',
+    date: '2025-12-01-15',
     type: 'daily',
     title: '每日病程记录',
     content: '患者今日空腹血糖7.2mmol/L，餐后2小时血糖9.5mmol/L。血压130/85mmHg。患者自述睡眠质量改善，无明显不适。',
@@ -207,7 +207,7 @@ export const mockProgressNotes: ProgressNote[] = [
   },
   {
     id: '4',
-    date: '2025-03-01-12',
+    date: '2025-12-01-12',
     type: 'treatment-plan',
     title: '营养治疗方案',
     content: '制定个性化饮食方案：每日总热量1800kcal，碳水化合物占50%，蛋白质占20%，脂肪占30%。建议少食多餐，控制精制糖摄入。',
@@ -216,7 +216,7 @@ export const mockProgressNotes: ProgressNote[] = [
   },
   {
     id: '5',
-    date: '2025-03-01-10',
+    date: '2025-12-01-10',
     type: 'consultation',
     title: '理疗专家视频咨询',
     content: '评估患者运动能力，制定运动处方：每周5次有氧运动，每次30分钟，包括快走、游泳等。配合力量训练，每周2-3次。',
@@ -235,8 +235,8 @@ export const mockTeamMembers: TeamMember[] = [
     specialty: '全科医学',
     avatar: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=150&h=150&fit=crop&crop=face',
     consultationsPerYear: 13,
-    completedConsultations: 2,
-    nextAppointment: '2025-04-15'
+    completedConsultations: 8,
+    nextAppointment: '2026-02-15'
   },
   {
     id: '2',
@@ -246,8 +246,8 @@ export const mockTeamMembers: TeamMember[] = [
     specialty: '内分泌科',
     avatar: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=150&h=150&fit=crop&crop=face',
     consultationsPerYear: 12,
-    completedConsultations: 1,
-    nextAppointment: '2025-04-10'
+    completedConsultations: 6,
+    nextAppointment: '2026-02-10'
   },
   {
     id: '3',
@@ -257,8 +257,8 @@ export const mockTeamMembers: TeamMember[] = [
     specialty: '临床营养',
     avatar: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=150&h=150&fit=crop&crop=face',
     consultationsPerYear: 12,
-    completedConsultations: 1,
-    nextAppointment: '2025-04-08'
+    completedConsultations: 5,
+    nextAppointment: '2026-02-08'
   },
   {
     id: '4',
@@ -268,8 +268,8 @@ export const mockTeamMembers: TeamMember[] = [
     specialty: '运动康复',
     avatar: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=150&h=150&fit=crop&crop=face',
     consultationsPerYear: 12,
-    completedConsultations: 1,
-    nextAppointment: '2025-04-12'
+    completedConsultations: 5,
+    nextAppointment: '2026-02-12'
   },
   {
     id: '5',
@@ -279,8 +279,8 @@ export const mockTeamMembers: TeamMember[] = [
     specialty: '健康教育',
     avatar: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop&crop=face',
     consultationsPerYear: 12,
-    completedConsultations: 0,
-    nextAppointment: '2025-04-05'
+    completedConsultations: 4,
+    nextAppointment: '2026-02-05'
   },
   {
     id: '6',
@@ -290,8 +290,8 @@ export const mockTeamMembers: TeamMember[] = [
     specialty: '健康管理',
     avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&h=150&fit=crop&crop=face',
     consultationsPerYear: 52,
-    completedConsultations: 4,
-    nextAppointment: '2025-03-28'
+    completedConsultations: 35,
+    nextAppointment: '2026-02-03'
   },
   {
     id: '7',
@@ -301,8 +301,8 @@ export const mockTeamMembers: TeamMember[] = [
     specialty: '护理',
     avatar: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=150&h=150&fit=crop&crop=face',
     consultationsPerYear: 24,
-    completedConsultations: 2,
-    nextAppointment: '2025-04-03'
+    completedConsultations: 16,
+    nextAppointment: '2026-02-06'
   },
   {
     id: '8',
@@ -312,8 +312,8 @@ export const mockTeamMembers: TeamMember[] = [
     specialty: '临床心理',
     avatar: 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=150&h=150&fit=crop&crop=face',
     consultationsPerYear: 12,
-    completedConsultations: 0,
-    nextAppointment: '2025-04-20'
+    completedConsultations: 3,
+    nextAppointment: '2026-02-20'
   },
   {
     id: '9',
@@ -323,8 +323,8 @@ export const mockTeamMembers: TeamMember[] = [
     specialty: '运动训练',
     avatar: 'https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=150&h=150&fit=crop&crop=face',
     consultationsPerYear: 24,
-    completedConsultations: 2,
-    nextAppointment: '2025-04-01'
+    completedConsultations: 12,
+    nextAppointment: '2026-02-08'
   }
 ]
 
@@ -334,7 +334,7 @@ export const mockConsultationRecords: ConsultationRecord[] = [
     id: '1',
     memberId: '1',
     teamMemberId: '1',
-    date: '2025-03-01-20',
+    date: '2026-01-20',
     type: 'video',
     duration: 30,
     summary: '血糖控制评估与用药调整',
@@ -345,7 +345,7 @@ export const mockConsultationRecords: ConsultationRecord[] = [
     id: '2',
     memberId: '1',
     teamMemberId: '3',
-    date: '2025-03-01-12',
+    date: '2026-01-12',
     type: 'video',
     duration: 45,
     summary: '营养方案制定',
@@ -364,7 +364,7 @@ export const mockServiceProjects: ServiceProject[] = [
     frequencyUnit: 'year',
     completed: 1,
     remaining: 0,
-    lastCompleted: '2025-03-05',
+    lastCompleted: '2025-12-05',
     status: 'completed'
   },
   {
@@ -375,7 +375,7 @@ export const mockServiceProjects: ServiceProject[] = [
     frequencyUnit: 'year',
     completed: 1,
     remaining: 0,
-    lastCompleted: '2025-03-05',
+    lastCompleted: '2025-12-05',
     status: 'completed'
   },
   {
@@ -386,7 +386,7 @@ export const mockServiceProjects: ServiceProject[] = [
     frequencyUnit: 'year',
     completed: 0,
     remaining: 4,
-    nextScheduled: '2025-05-15',
+    nextScheduled: '2025-09-15',
     status: 'on-track'
   },
   {
@@ -397,8 +397,8 @@ export const mockServiceProjects: ServiceProject[] = [
     frequencyUnit: 'year',
     completed: 4,
     remaining: 48,
-    nextScheduled: '2025-03-28',
-    lastCompleted: '2025-03-21',
+    nextScheduled: '2025-12-28',
+    lastCompleted: '2025-12-21',
     status: 'on-track'
   },
   {
@@ -409,8 +409,8 @@ export const mockServiceProjects: ServiceProject[] = [
     frequencyUnit: 'year',
     completed: 2,
     remaining: 24,
-    nextScheduled: '2025-04-15',
-    lastCompleted: '2025-03-20',
+    nextScheduled: '2025-08-15',
+    lastCompleted: '2025-12-20',
     status: 'on-track'
   },
   {
@@ -421,8 +421,8 @@ export const mockServiceProjects: ServiceProject[] = [
     frequencyUnit: 'year',
     completed: 1,
     remaining: 3,
-    nextScheduled: '2025-06-15',
-    lastCompleted: '2025-03-15',
+    nextScheduled: '2025-12-15',
+    lastCompleted: '2025-12-15',
     status: 'on-track'
   },
   {
@@ -433,8 +433,8 @@ export const mockServiceProjects: ServiceProject[] = [
     frequencyUnit: 'year',
     completed: 1,
     remaining: 3,
-    nextScheduled: '2025-06-20',
-    lastCompleted: '2025-03-18',
+    nextScheduled: '2025-12-20',
+    lastCompleted: '2025-12-18',
     status: 'on-track'
   },
   {
@@ -445,8 +445,8 @@ export const mockServiceProjects: ServiceProject[] = [
     frequencyUnit: 'year',
     completed: 1,
     remaining: 3,
-    nextScheduled: '2025-06-10',
-    lastCompleted: '2025-03-10',
+    nextScheduled: '2025-12-10',
+    lastCompleted: '2025-12-10',
     status: 'on-track'
   },
   {
@@ -480,7 +480,7 @@ export const mockHealthTrackingItems: HealthTrackingItem[] = [
     category: 'diagnosis',
     status: 'active',
     progress: 75,
-    lastUpdate: '2025-03-01-20',
+    lastUpdate: '2025-12-01-20',
     assignedTo: '李明华'
   },
   {
@@ -490,7 +490,7 @@ export const mockHealthTrackingItems: HealthTrackingItem[] = [
     category: 'medication',
     status: 'active',
     progress: 80,
-    lastUpdate: '2025-03-01-18',
+    lastUpdate: '2025-12-01-18',
     assignedTo: '王志强'
   },
   {
@@ -500,7 +500,7 @@ export const mockHealthTrackingItems: HealthTrackingItem[] = [
     category: 'diet',
     status: 'active',
     progress: 65,
-    lastUpdate: '2025-03-01-12',
+    lastUpdate: '2025-12-01-12',
     assignedTo: '陈思琪'
   },
   {
@@ -510,7 +510,7 @@ export const mockHealthTrackingItems: HealthTrackingItem[] = [
     category: 'sleep',
     status: 'active',
     progress: 50,
-    lastUpdate: '2025-03-01-15',
+    lastUpdate: '2025-12-01-15',
     assignedTo: '刘晓燕'
   },
   {
@@ -520,7 +520,7 @@ export const mockHealthTrackingItems: HealthTrackingItem[] = [
     category: 'exercise',
     status: 'active',
     progress: 70,
-    lastUpdate: '2025-03-01-10',
+    lastUpdate: '2025-12-01-10',
     assignedTo: '张伟杰'
   },
   {
@@ -530,7 +530,7 @@ export const mockHealthTrackingItems: HealthTrackingItem[] = [
     category: 'weight',
     status: 'active',
     progress: 60,
-    lastUpdate: '2025-03-01-12',
+    lastUpdate: '2025-12-01-12',
     assignedTo: '陈思琪'
   },
   {
@@ -540,7 +540,7 @@ export const mockHealthTrackingItems: HealthTrackingItem[] = [
     category: 'psychology',
     status: 'pending',
     progress: 0,
-    lastUpdate: '2025-03-01-05',
+    lastUpdate: '2025-12-01-05',
     assignedTo: '周建国'
   },
   {
@@ -550,7 +550,7 @@ export const mockHealthTrackingItems: HealthTrackingItem[] = [
     category: 'sub-health',
     status: 'active',
     progress: 55,
-    lastUpdate: '2025-03-01-21',
+    lastUpdate: '2025-12-01-21',
     assignedTo: '林雅婷'
   }
 ]

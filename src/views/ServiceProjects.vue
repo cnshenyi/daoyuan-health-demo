@@ -171,8 +171,8 @@ const getMemberNo = () => {
 }
 
 const getValidityDate = () => {
-  // 会员卡生效日期 2025-02-01，有效期一年，到期日 2026-02-01
-  return '2026.02.01'
+  // 会员卡生效日期 2025-06-01，有效期一年，到期日 2026-06-01
+  return '2026.06.01'
 }
 
 const getStatusText = (status: string) => {
