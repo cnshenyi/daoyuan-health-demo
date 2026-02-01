@@ -44,6 +44,8 @@
     </el-aside>
 
     <el-container>
+      <!-- iOS Status Bar Spacer -->
+      <div class="ios-status-bar-spacer"></div>
       <!-- Header -->
       <el-header class="header">
         <!-- Mobile Logo -->
@@ -241,6 +243,25 @@ const handleLogout = () => {
 }
 
 /* ========================================
+   iOS 状态栏占位
+   ======================================== */
+.ios-status-bar-spacer {
+  display: none;
+  height: 0;
+  background: #1E3A5F;
+}
+
+/* iOS PWA standalone 模式 */
+@media all and (display-mode: standalone) {
+  .ios-status-bar-spacer {
+    display: block;
+    height: env(safe-area-inset-top, 44px);
+    height: constant(safe-area-inset-top, 44px);
+    min-height: 44px;
+  }
+}
+
+/* ========================================
    顶部 Header
    ======================================== */
 .header {
@@ -250,30 +271,7 @@ const handleLogout = () => {
   align-items: center;
   justify-content: space-between;
   padding: 0 var(--spacing-xl);
-  padding-top: 8px;
-  padding-top: calc(env(safe-area-inset-top, 0px) + 8px);
-  padding-top: calc(constant(safe-area-inset-top, 0px) + 8px); /* iOS 11.0-11.2 */
   box-shadow: 0 4px 16px rgba(30, 58, 95, 0.2);
-}
-
-/* iOS PWA standalone mode - 确保状态栏不重叠 */
-@supports (padding-top: env(safe-area-inset-top)) {
-  .header {
-    padding-top: calc(env(safe-area-inset-top) + 8px);
-  }
-}
-
-@supports (padding-top: constant(safe-area-inset-top)) {
-  .header {
-    padding-top: calc(constant(safe-area-inset-top) + 8px);
-  }
-}
-
-/* PWA standalone 模式下的额外处理 */
-@media all and (display-mode: standalone) {
-  .header {
-    padding-top: max(env(safe-area-inset-top, 44px), 44px);
-  }
 }
 
 .mobile-logo {
