@@ -44,8 +44,8 @@
     </el-aside>
 
     <el-container>
-      <!-- iOS Status Bar Spacer -->
-      <div class="ios-status-bar-spacer"></div>
+      <!-- iOS Status Bar Spacer (只在 iOS PWA standalone 模式显示) -->
+      <div v-if="isIOSPWA" class="ios-status-bar-spacer"></div>
       <!-- Header -->
       <el-header class="header">
         <!-- Mobile Logo -->
@@ -137,6 +137,15 @@ const userStore = useUserStore()
 const messageStore = useMessageStore()
 
 const activeMenu = computed(() => route.path)
+
+// 检测是否是 iOS PWA standalone 模式
+const isIOSPWA = computed(() => {
+  if (typeof window === 'undefined') return false
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
+  const isStandalone = (window.navigator as any).standalone === true || 
+                       window.matchMedia('(display-mode: standalone)').matches
+  return isIOS && isStandalone
+})
 
 const routeNameMap: Record<string, string> = {
   'Dashboard': '首页',
@@ -246,19 +255,10 @@ const handleLogout = () => {
    iOS 状态栏占位
    ======================================== */
 .ios-status-bar-spacer {
-  display: none;
-  height: 0;
+  display: block;
+  height: env(safe-area-inset-top, 44px);
+  min-height: 44px;
   background: #1E3A5F;
-}
-
-/* iOS PWA standalone 模式 */
-@media all and (display-mode: standalone) {
-  .ios-status-bar-spacer {
-    display: block;
-    height: env(safe-area-inset-top, 44px);
-    height: constant(safe-area-inset-top, 44px);
-    min-height: 44px;
-  }
 }
 
 /* ========================================
