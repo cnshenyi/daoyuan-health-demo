@@ -46,16 +46,16 @@ export const useMessageStore = defineStore('message', () => {
     {
       id: '2',
       type: 'emergency',
-      title: '【转诊建议】上海瑞金医院内分泌科',
-      content: '基于您的血糖监测数据，建议进行更深入的内分泌系统检查。上海瑞金医院内分泌科是国家重点学科，我们可以为您安排绿色通道就诊。',
-      summary: '建议前往瑞金医院进行内分泌检查',
+      title: '【转诊建议】北京和睦家医院内分泌科',
+      content: '基于您的血糖监测数据，建议进行更深入的内分泌系统检查。北京和睦家医院是国际JCI认证的高端医疗机构，内分泌科由国际专家团队坐诊，我们可以为您安排VIP绿色通道就诊。',
+      summary: '建议前往和睦家医院进行内分泌检查',
       time: '2025-12-30 14:20',
       read: false,
       important: true,
       data: {
-        hospital: '上海瑞金医院',
+        hospital: '北京和睦家医院',
         department: '内分泌科',
-        tags: ['转诊建议', '重点学科']
+        tags: ['转诊建议', 'JCI认证', '国际医疗']
       }
     },
     // 国际前沿新药推荐
