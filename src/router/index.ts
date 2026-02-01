@@ -53,6 +53,11 @@ const routes: RouteRecordRaw[] = [
         path: 'messages',
         name: 'Messages',
         component: () => import('@/views/Messages.vue')
+      },
+      {
+        path: 'premium-service',
+        name: 'PremiumService',
+        component: () => import('@/views/PremiumService.vue')
       }
     ]
   }

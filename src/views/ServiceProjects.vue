@@ -42,6 +42,30 @@
       </div>
     </div>
 
+    <!-- 至尊服务 Banner -->
+    <div class="premium-banner" @click="goToPremiumService">
+      <div class="banner-bg"></div>
+      <div class="banner-overlay"></div>
+      <div class="banner-content">
+        <div class="banner-badge">
+          <span class="badge-crown">👑</span>
+          <span class="badge-label">至尊专享</span>
+        </div>
+        <div class="banner-title">国际高端康养干细胞至尊服务</div>
+        <div class="banner-subtitle">澳大利亚10日顶级康养之旅 · svCell再生疗法</div>
+        <div class="banner-cta">
+          <span class="cta-text">了解详情</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cta-arrow">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </div>
+      </div>
+      <div class="banner-price">
+        <span class="price-value">¥500,000</span>
+        <span class="price-unit">/次</span>
+      </div>
+    </div>
+
     <!-- 服务追踪列表 -->
     <div class="service-list">
       <div
@@ -107,6 +131,10 @@ const healthStore = useHealthStore()
 
 const goToBenefits = () => {
   router.push('/membership-benefits')
+}
+
+const goToPremiumService = () => {
+  router.push('/premium-service')
 }
 
 // 金色实心图标组件
@@ -413,6 +441,138 @@ const getProgressPercentage = (project: any) => {
   font-weight: 600;
   color: #C9A962;
   letter-spacing: 0.5px;
+}
+
+/* 至尊服务 Banner */
+.premium-banner {
+  position: relative;
+  margin: var(--spacing-lg) 0;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.premium-banner:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.premium-banner:active {
+  transform: translateY(-1px);
+}
+
+.banner-bg {
+  position: absolute;
+  inset: 0;
+  background: 
+    url('https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=800&q=80') center/cover;
+  filter: brightness(0.4);
+}
+
+.banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(135deg, rgba(10, 22, 40, 0.85) 0%, rgba(26, 42, 74, 0.7) 100%),
+    radial-gradient(ellipse at 20% 50%, rgba(201, 169, 98, 0.2) 0%, transparent 60%);
+}
+
+.banner-content {
+  position: relative;
+  z-index: 1;
+  padding: 24px 20px;
+}
+
+.banner-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: linear-gradient(135deg, rgba(201, 169, 98, 0.3) 0%, rgba(201, 169, 98, 0.15) 100%);
+  border: 1px solid rgba(201, 169, 98, 0.5);
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.badge-crown {
+  font-size: 14px;
+}
+
+.badge-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #C9A962;
+  letter-spacing: 1px;
+}
+
+.banner-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.banner-subtitle {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+}
+
+.banner-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #C9A962 0%, #D4B87A 100%);
+  border-radius: 25px;
+  box-shadow: 0 4px 16px rgba(201, 169, 98, 0.4);
+  transition: all 0.3s ease;
+}
+
+.premium-banner:hover .banner-cta {
+  box-shadow: 0 6px 20px rgba(201, 169, 98, 0.5);
+}
+
+.cta-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a2a4a;
+  letter-spacing: 0.5px;
+}
+
+.cta-arrow {
+  width: 16px;
+  height: 16px;
+  color: #1a2a4a;
+}
+
+.banner-price {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  padding: 8px 14px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(201, 169, 98, 0.3);
+  border-radius: 8px;
+}
+
+.price-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #C9A962;
+  font-family: var(--font-display);
+}
+
+.price-unit {
+  font-size: 12px;
+  color: rgba(201, 169, 98, 0.7);
 }
 
 /* 服务追踪列表 */
