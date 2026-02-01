@@ -1,11 +1,6 @@
 <template>
   <div class="page-container health-records">
-    <div class="page-header">
-      <h1 class="page-title">健康档案</h1>
-      <p class="page-description">完整的医疗历史记录和检查结果</p>
-    </div>
-
-    <!-- 标签页导航 -->
+    <!-- 标签页导航 - 深蓝底金色图标 -->
     <div class="tabs-wrapper">
       <div class="tab-buttons">
         <button
@@ -14,7 +9,22 @@
           :class="['tab-button', { active: activeTab === tab.value }]"
           @click="activeTab = tab.value"
         >
-          <span class="tab-icon">{{ tab.icon }}</span>
+          <div class="tab-icon-wrapper">
+            <svg v-if="tab.value === 'history'" viewBox="0 0 24 24" fill="none" class="tab-svg">
+              <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <rect x="9" y="3" width="6" height="4" rx="1" stroke="currentColor" stroke-width="2"/>
+              <path d="M9 12h6M9 16h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <svg v-else-if="tab.value === 'checkups'" viewBox="0 0 24 24" fill="none" class="tab-svg">
+              <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z" stroke="currentColor" stroke-width="2"/>
+              <path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <svg v-else viewBox="0 0 24 24" fill="none" class="tab-svg">
+              <path d="M9 3v2M15 3v2M9 19v2M15 19v2M3 9h2M3 15h2M19 9h2M19 15h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <rect x="5" y="5" width="14" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+              <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
           <span class="tab-label">{{ tab.label }}</span>
         </button>
       </div>
@@ -22,19 +32,45 @@
 
     <!-- 病史信息 -->
     <div v-show="activeTab === 'history'" class="tab-content">
-      <!-- 基本信息 -->
-      <div class="medical-card">
+      <!-- 基本信息 - 紧凑版带隐私保护 -->
+      <div class="medical-card basic-info-card">
         <div class="medical-card-header">
           <h3 class="medical-card-title">基本信息</h3>
+          <button class="privacy-toggle" @click="showPrivateInfo = !showPrivateInfo">
+            <svg v-if="showPrivateInfo" viewBox="0 0 24 24" fill="none" class="eye-icon">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="2"/>
+              <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <svg v-else viewBox="0 0 24 24" fill="none" class="eye-icon">
+              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="1" y1="1" x2="23" y2="23" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </button>
         </div>
-        <div class="info-grid">
-          <div class="info-item">
-            <div class="info-label">职业</div>
-            <div class="info-value">{{ healthStore.medicalHistory.occupation }}</div>
+        <div class="basic-info-grid">
+          <div class="basic-info-item">
+            <span class="basic-info-label">姓名</span>
+            <span class="basic-info-value">{{ showPrivateInfo ? userStore.user?.name : maskText(userStore.user?.name || '') }}</span>
           </div>
-          <div class="info-item">
-            <div class="info-label">婚姻状况</div>
-            <div class="info-value">{{ healthStore.medicalHistory.maritalStatus }}</div>
+          <div class="basic-info-item">
+            <span class="basic-info-label">年龄</span>
+            <span class="basic-info-value">{{ showPrivateInfo ? '45岁' : '**岁' }}</span>
+          </div>
+          <div class="basic-info-item">
+            <span class="basic-info-label">性别</span>
+            <span class="basic-info-value">{{ showPrivateInfo ? '男' : '*' }}</span>
+          </div>
+          <div class="basic-info-item">
+            <span class="basic-info-label">血型</span>
+            <span class="basic-info-value">{{ showPrivateInfo ? 'A型' : '**' }}</span>
+          </div>
+          <div class="basic-info-item">
+            <span class="basic-info-label">职业</span>
+            <span class="basic-info-value">{{ showPrivateInfo ? healthStore.medicalHistory.occupation : maskText(healthStore.medicalHistory.occupation) }}</span>
+          </div>
+          <div class="basic-info-item">
+            <span class="basic-info-label">婚姻</span>
+            <span class="basic-info-value">{{ showPrivateInfo ? healthStore.medicalHistory.maritalStatus : '**' }}</span>
           </div>
         </div>
       </div>
@@ -217,15 +253,25 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useHealthStore } from '@/stores/health'
+import { useUserStore } from '@/stores/user'
 
 const healthStore = useHealthStore()
+const userStore = useUserStore()
 const activeTab = ref('history')
+const showPrivateInfo = ref(false)
 
 const tabs = [
-  { label: '病史信息', value: 'history', icon: '📋' },
-  { label: '体检报告', value: 'checkups', icon: '🏥' },
-  { label: '检验结果', value: 'tests', icon: '🔬' }
+  { label: '病史信息', value: 'history' },
+  { label: '体检报告', value: 'checkups' },
+  { label: '检验结果', value: 'tests' }
 ]
+
+// 文字脱敏
+const maskText = (text: string) => {
+  if (!text) return '***'
+  if (text.length <= 2) return '*'.repeat(text.length)
+  return text[0] + '*'.repeat(text.length - 1)
+}
 
 const getStatusText = (status: string) => {
   const statusMap: Record<string, string> = {
@@ -242,35 +288,32 @@ const getStatusText = (status: string) => {
   padding-bottom: var(--spacing-2xl);
 }
 
-/* 标签页导航 */
+/* 标签页导航 - 深蓝底金色图标 */
 .tabs-wrapper {
-  margin-bottom: var(--spacing-xl);
+  margin-bottom: var(--spacing-md);
 }
 
 .tab-buttons {
   display: flex;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
   background: var(--color-bg-secondary);
-  padding: var(--spacing-sm);
+  padding: var(--spacing-xs);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
-  overflow-x: auto;
 }
 
 .tab-button {
   flex: 1;
-  min-width: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-xs);
-  padding: var(--spacing-md);
+  gap: 4px;
+  padding: var(--spacing-sm);
   background: transparent;
   border: none;
   border-radius: var(--radius-md);
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  font-family: var(--font-body);
 }
 
 .tab-button:hover {
@@ -278,33 +321,114 @@ const getStatusText = (status: string) => {
 }
 
 .tab-button.active {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  background: linear-gradient(135deg, #1E3A5F 0%, #2A4F7F 100%);
   box-shadow: var(--shadow-md);
 }
 
-.tab-icon {
-  font-size: var(--font-size-2xl);
+.tab-icon-wrapper {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1E3A5F 0%, #2A4F7F 100%);
+  border-radius: var(--radius-md);
+  transition: all 0.3s ease;
+}
+
+.tab-button.active .tab-icon-wrapper {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.tab-svg {
+  width: 20px;
+  height: 20px;
+  color: #C9A962;
 }
 
 .tab-label {
-  font-size: var(--font-size-sm);
+  font-size: 11px;
   font-weight: 600;
-  color: var(--color-text-primary);
+  color: var(--color-text-secondary);
 }
 
 .tab-button.active .tab-label {
   color: var(--color-text-light);
 }
 
+/* 基本信息卡片 - 紧凑版 */
+.basic-info-card {
+  margin-bottom: var(--spacing-md);
+}
+
+.basic-info-card .medical-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.privacy-toggle {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(30, 58, 95, 0.1);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.privacy-toggle:hover {
+  background: rgba(30, 58, 95, 0.2);
+}
+
+.privacy-toggle:active {
+  transform: scale(0.95);
+}
+
+.eye-icon {
+  width: 18px;
+  height: 18px;
+  color: #1E3A5F;
+}
+
+.basic-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-xs);
+}
+
+.basic-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--spacing-xs);
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-sm);
+}
+
+.basic-info-label {
+  font-size: 10px;
+  color: var(--color-text-tertiary);
+}
+
+.basic-info-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
 /* 标签页内容 */
 .tab-content {
-  animation: fadeIn 0.4s ease-out;
+  animation: fadeIn 0.3s ease;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -312,170 +436,144 @@ const getStatusText = (status: string) => {
   }
 }
 
-/* 信息网格 */
-.info-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--spacing-md);
-}
-
-.info-item {
+/* 医疗卡片 */
+.medical-card {
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
   padding: var(--spacing-md);
-  background: var(--color-bg-tertiary);
-  border-radius: var(--radius-md);
-  transition: all 0.3s ease;
+  margin-bottom: var(--spacing-md);
+  box-shadow: var(--shadow-sm);
 }
 
-.info-item:hover {
-  background: var(--color-bg-cream);
-  transform: translateY(-2px);
+.medical-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
 }
 
-.info-label {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-tertiary);
-  margin-bottom: var(--spacing-xs);
-  font-weight: 500;
-}
-
-.info-value {
+.medical-card-title {
   font-size: var(--font-size-md);
+  font-weight: 700;
   color: var(--color-text-primary);
-  font-weight: 600;
+  font-family: var(--font-display);
 }
 
-/* 徽章计数 */
+/* 徽章 */
 .badge-count {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 24px;
-  height: 24px;
-  padding: 0 var(--spacing-xs);
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
   background: var(--color-primary);
-  color: var(--color-text-light);
-  font-size: var(--font-size-xs);
+  color: white;
+  font-size: 11px;
   font-weight: 600;
-  border-radius: 12px;
-}
-
-.badge-count.warning {
-  background: var(--color-warning);
+  border-radius: 10px;
 }
 
 .badge-count.danger {
   background: var(--color-danger);
 }
 
-/* 标签容器 */
+.badge-count.warning {
+  background: var(--color-warning);
+}
+
+/* 标签 */
 .tags-container {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
 }
 
 .tag {
   display: inline-flex;
   align-items: center;
-  padding: var(--spacing-sm) var(--spacing-md);
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-sm);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
   font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.tag:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
 }
 
 .tag-info {
-  background: rgba(144, 147, 153, 0.1);
-  color: #909399;
-  border: 1px solid rgba(144, 147, 153, 0.2);
-}
-
-.tag-warning {
-  background: rgba(230, 162, 60, 0.1);
-  color: var(--color-warning);
-  border: 1px solid rgba(230, 162, 60, 0.2);
+  background: rgba(30, 58, 95, 0.1);
+  color: var(--color-primary);
 }
 
 .tag-danger {
-  background: rgba(245, 108, 108, 0.1);
+  background: rgba(220, 53, 69, 0.1);
   color: var(--color-danger);
-  border: 1px solid rgba(245, 108, 108, 0.2);
+}
+
+.tag-warning {
+  background: rgba(255, 193, 7, 0.15);
+  color: #b38600;
 }
 
 /* 生活习惯网格 */
 .lifestyle-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: var(--spacing-lg);
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.lifestyle-grid .medical-card {
+  margin-bottom: 0;
 }
 
 .lifestyle-text {
-  font-size: var(--font-size-md);
+  font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
-  line-height: 1.6;
-  padding: var(--spacing-md);
-  background: var(--color-bg-tertiary);
-  border-radius: var(--radius-md);
+  line-height: 1.5;
 }
 
-/* 时间线列表 */
+/* 时间线 */
 .timeline-list {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
 }
 
 .timeline-item {
   display: flex;
   align-items: flex-start;
-  gap: var(--spacing-md);
-  padding: var(--spacing-md);
-  background: var(--color-bg-tertiary);
-  border-radius: var(--radius-md);
-  transition: all 0.3s ease;
-}
-
-.timeline-item:hover {
-  background: var(--color-bg-cream);
-  transform: translateX(4px);
+  gap: var(--spacing-sm);
 }
 
 .timeline-dot {
-  width: 12px;
-  height: 12px;
+  width: 8px;
+  height: 8px;
+  background: var(--color-primary);
   border-radius: 50%;
-  background: var(--color-accent);
-  margin-top: 4px;
+  margin-top: 6px;
   flex-shrink: 0;
 }
 
 .timeline-content {
-  flex: 1;
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
-/* 体检报告 */
+/* 体检报告卡片 */
 .checkup-card {
-  margin-bottom: var(--spacing-lg);
+  border-left: 3px solid var(--color-primary);
 }
 
 .checkup-date {
-  font-size: var(--font-size-xs);
+  font-size: 12px;
   color: var(--color-text-tertiary);
-  margin-top: var(--spacing-xs);
+  margin-top: 2px;
 }
 
 .status-badge {
-  padding: var(--spacing-xs) var(--spacing-md);
-  border-radius: var(--radius-sm);
-  font-size: var(--font-size-xs);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
   font-weight: 600;
 }
 
@@ -485,64 +583,61 @@ const getStatusText = (status: string) => {
 }
 
 .status-badge.attention {
-  background: rgba(230, 162, 60, 0.1);
-  color: var(--color-warning);
+  background: rgba(255, 193, 7, 0.15);
+  color: #b38600;
 }
 
 .status-badge.abnormal {
-  background: rgba(245, 108, 108, 0.1);
+  background: rgba(220, 53, 69, 0.1);
   color: var(--color-danger);
 }
 
 .checkup-summary {
-  padding: var(--spacing-md);
+  padding: var(--spacing-sm);
   background: var(--color-bg-tertiary);
   border-radius: var(--radius-md);
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
 }
 
 .checkup-summary p {
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
-  line-height: 1.6;
+  line-height: 1.5;
+  margin: 0;
 }
 
 .checkup-items {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
 }
 
 .checkup-item {
-  padding: var(--spacing-md);
-  background: var(--color-bg-tertiary);
-  border-radius: var(--radius-md);
-  transition: all 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-xs) 0;
+  border-bottom: 1px solid var(--color-border);
 }
 
-.checkup-item:hover {
-  background: var(--color-bg-cream);
-  transform: translateY(-2px);
+.checkup-item:last-child {
+  border-bottom: none;
 }
 
 .item-name {
   font-size: var(--font-size-sm);
-  color: var(--color-text-primary);
-  font-weight: 600;
-  margin-bottom: var(--spacing-xs);
+  color: var(--color-text-secondary);
 }
 
 .item-value {
   display: flex;
   align-items: baseline;
-  gap: var(--spacing-xs);
-  margin-bottom: var(--spacing-xs);
+  gap: 4px;
 }
 
 .value-text {
-  font-size: var(--font-size-xl);
-  font-weight: 700;
-  font-family: var(--font-display);
+  font-size: var(--font-size-md);
+  font-weight: 600;
 }
 
 .value-text.normal {
@@ -550,72 +645,65 @@ const getStatusText = (status: string) => {
 }
 
 .value-text.high,
-.value-text.attention {
-  color: var(--color-warning);
-}
-
-.value-text.low,
 .value-text.abnormal {
   color: var(--color-danger);
 }
 
+.value-text.low {
+  color: var(--color-warning);
+}
+
 .value-unit {
-  font-size: var(--font-size-xs);
+  font-size: 11px;
   color: var(--color-text-tertiary);
 }
 
 .item-range {
-  font-size: var(--font-size-xs);
+  font-size: 10px;
   color: var(--color-text-tertiary);
 }
 
-/* 检验结果 */
+/* 检验结果卡片 */
 .test-card {
-  margin-bottom: var(--spacing-lg);
+  border-left: 3px solid var(--color-accent);
 }
 
 .test-date {
-  font-size: var(--font-size-xs);
+  font-size: 12px;
   color: var(--color-text-tertiary);
-  margin-top: var(--spacing-xs);
+  margin-top: 2px;
 }
 
 .test-results {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
 }
 
 .test-result-item {
-  padding: var(--spacing-md);
+  padding: var(--spacing-sm);
   background: var(--color-bg-tertiary);
   border-radius: var(--radius-md);
-  transition: all 0.3s ease;
-}
-
-.test-result-item:hover {
-  background: var(--color-bg-cream);
-  transform: translateX(4px);
 }
 
 .result-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: 4px;
 }
 
 .result-name {
-  font-size: var(--font-size-md);
+  font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text-primary);
 }
 
 .result-status {
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--radius-sm);
-  font-size: var(--font-size-xs);
+  font-size: 11px;
   font-weight: 600;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
 }
 
 .result-status.normal {
@@ -624,13 +712,13 @@ const getStatusText = (status: string) => {
 }
 
 .result-status.high {
-  background: rgba(230, 162, 60, 0.1);
-  color: var(--color-warning);
+  background: rgba(220, 53, 69, 0.1);
+  color: var(--color-danger);
 }
 
 .result-status.low {
-  background: rgba(245, 108, 108, 0.1);
-  color: var(--color-danger);
+  background: rgba(255, 193, 7, 0.15);
+  color: #b38600;
 }
 
 .result-details {
@@ -640,38 +728,34 @@ const getStatusText = (status: string) => {
 }
 
 .result-value {
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-md);
   font-weight: 700;
   color: var(--color-text-primary);
-  font-family: var(--font-display);
 }
 
 .result-range {
-  font-size: var(--font-size-xs);
+  font-size: 11px;
   color: var(--color-text-tertiary);
 }
 
-/* 移动端响应式 */
+/* 移动端适配 */
 @media (max-width: 768px) {
-  .tab-buttons {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+  .basic-info-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
-
-  .tab-button {
-    min-width: 100px;
-  }
-
-  .info-grid,
-  .lifestyle-grid,
-  .checkup-items {
+  
+  .lifestyle-grid {
     grid-template-columns: 1fr;
   }
-
-  .result-details {
+  
+  .checkup-item {
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--spacing-xs);
+    gap: 4px;
+  }
+  
+  .item-range {
+    align-self: flex-end;
   }
 }
 </style>
