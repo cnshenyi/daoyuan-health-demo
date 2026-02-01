@@ -165,7 +165,8 @@ const routeNameMap: Record<string, string> = {
   'TeamCollaboration': '团队协作',
   'ServiceProjects': '服务项目',
   'MembershipBenefits': '会员权益',
-  'Messages': '消息中心'
+  'Messages': '消息中心',
+  'PremiumService': '至尊服务'
 }
 
 const currentRouteName = computed(() => {
