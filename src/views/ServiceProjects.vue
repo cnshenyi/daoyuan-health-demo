@@ -48,7 +48,9 @@
       <div class="banner-overlay"></div>
       <div class="banner-content">
         <div class="banner-badge">
-          <span class="badge-crown">👑</span>
+          <svg class="badge-crown" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/>
+          </svg>
           <span class="badge-label">至尊专享</span>
         </div>
         <div class="banner-title">国际高端康养干细胞至尊服务</div>
@@ -497,7 +499,9 @@ const getProgressPercentage = (project: any) => {
 }
 
 .badge-crown {
-  font-size: 14px;
+  width: 16px;
+  height: 16px;
+  color: #C9A962;
 }
 
 .badge-label {
