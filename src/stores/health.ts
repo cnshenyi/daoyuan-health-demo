@@ -38,8 +38,8 @@ interface LabTest {
 const mockCheckupReports: CheckupReport[] = [
   {
     id: '1',
-    title: '2026年度健康体检',
-    date: '2026-01-15',
+    title: '2025年度健康体检',
+    date: '2025-12-15',
     status: 'attention',
     summary: '整体健康状况良好，血糖指标需要关注，建议定期复查。',
     items: [
@@ -52,8 +52,8 @@ const mockCheckupReports: CheckupReport[] = [
   },
   {
     id: '2',
-    title: '2025年度健康体检',
-    date: '2025-01-20',
+    title: '2025年中健康体检',
+    date: '2025-06-20',
     status: 'normal',
     summary: '各项指标正常，继续保持良好的生活习惯。',
     items: [
@@ -71,7 +71,7 @@ const mockLabTests: LabTest[] = [
   {
     id: '1',
     name: '糖化血红蛋白检测',
-    date: '2026-01-28',
+    date: '2025-12-28',
     category: '血糖监测',
     items: [
       { name: 'HbA1c', value: '6.5', unit: '%', normalRange: '<6.0', status: 'high' },
@@ -81,7 +81,7 @@ const mockLabTests: LabTest[] = [
   {
     id: '2',
     name: '肝功能检查',
-    date: '2026-01-15',
+    date: '2025-12-15',
     category: '肝脏功能',
     items: [
       { name: 'ALT', value: '28', unit: 'U/L', normalRange: '0-40', status: 'normal' },
@@ -92,7 +92,7 @@ const mockLabTests: LabTest[] = [
   {
     id: '3',
     name: '肾功能检查',
-    date: '2026-01-15',
+    date: '2025-12-15',
     category: '肾脏功能',
     items: [
       { name: '肌酐', value: '85', unit: 'μmol/L', normalRange: '44-133', status: 'normal' },
@@ -103,7 +103,7 @@ const mockLabTests: LabTest[] = [
   {
     id: '4',
     name: '血脂检查',
-    date: '2026-01-15',
+    date: '2025-12-15',
     category: '心血管',
     items: [
       { name: '总胆固醇', value: '5.2', unit: 'mmol/L', normalRange: '<5.2', status: 'normal' },

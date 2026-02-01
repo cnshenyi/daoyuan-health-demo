@@ -167,13 +167,12 @@ const getServiceIcon = (name: string) => {
 }
 
 const getMemberNo = () => {
-  return 'DY' + String(healthStore.memberInfo.age * 1000 + 2026).padStart(8, '0')
+  return 'DY' + String(healthStore.memberInfo.age * 1000 + 2025).padStart(8, '0')
 }
 
 const getValidityDate = () => {
-  const date = new Date()
-  date.setFullYear(date.getFullYear() + 1)
-  return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`
+  // 会员卡生效日期 2025-02-01，有效期一年，到期日 2026-02-01
+  return '2026.02.01'
 }
 
 const getStatusText = (status: string) => {
