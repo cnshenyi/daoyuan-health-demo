@@ -498,6 +498,19 @@ html {
 .user-dropdown-popper {
   --el-dropdown-menuItem-hover-fill: rgba(201, 169, 98, 0.15) !important;
   --el-dropdown-menuItem-hover-color: #C9A962 !important;
+  --el-border-color-light: transparent !important;
+  --el-bg-color-overlay: transparent !important;
+}
+
+.user-dropdown-popper.el-popper {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.user-dropdown-popper.el-popper.is-light {
+  background: transparent !important;
+  border: none !important;
 }
 
 .user-dropdown-popper .el-dropdown-menu {
@@ -532,23 +545,20 @@ html {
   padding-top: 12px !important;
 }
 
-.user-dropdown-popper .el-popper__arrow::before {
-  background: #1a2a4a !important;
-  border-color: rgba(201, 169, 98, 0.3) !important;
+.user-dropdown-popper .el-popper__arrow {
+  display: none !important;
 }
 
-/* 去掉下拉菜单的白色边框/阴影 */
-.user-dropdown-popper.el-popper {
-  border: none !important;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4) !important;
+/* ========================================
+   彻底去掉所有白色边框
+   ======================================== */
+/* 头像点击时的白色边框 - 使用最高优先级 */
+*:focus,
+*:focus-visible,
+*:focus-within {
+  outline: none !important;
 }
 
-.user-dropdown-popper.el-popper.is-light {
-  border: 1px solid rgba(201, 169, 98, 0.3) !important;
-  background: transparent !important;
-}
-
-/* 去掉头像点击时的白色边框 */
 .el-dropdown,
 .el-dropdown *,
 .el-dropdown:focus,
@@ -559,6 +569,7 @@ html {
 .el-dropdown *:active {
   outline: none !important;
   box-shadow: none !important;
+  border-color: transparent !important;
 }
 
 .el-dropdown .el-tooltip__trigger,
@@ -593,13 +604,23 @@ html {
   outline: none !important;
 }
 
-/* 下拉菜单容器 */
+/* 下拉菜单容器 - 去掉灰色边框 */
 .el-dropdown__popper,
-.el-dropdown__popper.el-popper {
+.el-dropdown__popper.el-popper,
+.el-popper.is-light,
+.el-popper {
   border: none !important;
+  --el-border-color-light: transparent !important;
 }
 
 .el-dropdown__popper.el-popper[data-popper-placement] {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* 去掉 popper 的默认边框 */
+.el-popper.is-light .el-popper__arrow::before {
+  border: none !important;
   background: transparent !important;
 }
 
