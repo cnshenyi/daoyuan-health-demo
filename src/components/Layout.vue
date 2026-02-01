@@ -244,13 +244,13 @@ const handleLogout = () => {
    顶部 Header
    ======================================== */
 .header {
-  background: linear-gradient(135deg, #1E3A5F 0%, #2A4F7F 100%);
+  background: #1E3A5F;
   border-bottom: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 var(--spacing-xl);
-  padding-top: env(safe-area-inset-top);
+  padding-top: calc(env(safe-area-inset-top, 0px) + 8px);
   box-shadow: 0 4px 16px rgba(30, 58, 95, 0.2);
 }
 
