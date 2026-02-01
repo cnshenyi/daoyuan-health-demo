@@ -6,12 +6,48 @@
       :threshold="threshold"
     />
 
-    <!-- 欢迎横幅 - 带健康名言 -->
+    <!-- 欢迎横幅 - 带健康名言和健康评分 -->
     <div class="welcome-banner">
       <div class="welcome-content">
         <div class="welcome-greeting">
           <h1 class="welcome-title">您好，{{ userStore.user?.name }}</h1>
           <p class="welcome-quote">{{ currentQuote }}</p>
+        </div>
+        <div class="health-score-ring" @click="$router.push('/health-records')">
+          <svg viewBox="0 0 100 100" class="score-svg">
+            <!-- 背景圆环 -->
+            <circle
+              cx="50"
+              cy="50"
+              r="42"
+              fill="none"
+              stroke="rgba(255,255,255,0.2)"
+              stroke-width="6"
+            />
+            <!-- 进度圆环 -->
+            <circle
+              cx="50"
+              cy="50"
+              r="42"
+              fill="none"
+              stroke="url(#scoreGradient)"
+              stroke-width="6"
+              stroke-linecap="round"
+              :stroke-dasharray="scoreCircumference"
+              :stroke-dashoffset="scoreOffset"
+              transform="rotate(-90 50 50)"
+            />
+            <defs>
+              <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#C9A962" />
+                <stop offset="100%" stop-color="#E8D5A3" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="score-content">
+            <span class="score-value">{{ healthScore }}</span>
+            <span class="score-label">健康指数</span>
+          </div>
         </div>
       </div>
     </div>
@@ -175,6 +211,14 @@ const glucoseStore = useGlucoseStore()
 const progressStore = useProgressStore()
 const teamStore = useTeamStore()
 
+// 健康评分（模拟数据，实际应根据血糖、运动、睡眠等综合计算）
+const healthScore = ref(85)
+const scoreCircumference = 2 * Math.PI * 42 // 圆周长
+const scoreOffset = computed(() => {
+  const progress = healthScore.value / 100
+  return scoreCircumference * (1 - progress)
+})
+
 // 健康名言列表
 const healthQuotes = [
   '健康是人生第一财富。—— 爱默生',
@@ -249,10 +293,15 @@ const getGlucoseStatusClass = (status?: string) => {
 .welcome-content {
   position: relative;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
 }
 
 .welcome-greeting {
   flex: 1;
+  min-width: 0;
 }
 
 .welcome-title {
@@ -273,6 +322,60 @@ const getGlucoseStatusClass = (status?: string) => {
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 健康评分环 */
+.health-score-ring {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.health-score-ring:hover {
+  transform: scale(1.05);
+}
+
+.health-score-ring:active {
+  transform: scale(0.95);
+}
+
+.score-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(0deg);
+}
+
+.score-svg circle:last-of-type {
+  transition: stroke-dashoffset 1s ease-out;
+}
+
+.score-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #C9A962;
+  line-height: 1;
+  font-family: var(--font-display);
+}
+
+.score-label {
+  font-size: 8px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 2px;
   white-space: nowrap;
 }
 
