@@ -26,7 +26,8 @@ export const useUserStore = defineStore('user', () => {
   const checkAuth = () => {
     const storedUser = localStorage.getItem('user')
     if (storedUser) {
-      user.value = JSON.parse(storedUser)
+      // 始终使用最新的 mockUser 数据（包括头像）
+      user.value = { ...JSON.parse(storedUser), avatar: mockUser.avatar }
       isLoggedIn.value = true
     }
   }
