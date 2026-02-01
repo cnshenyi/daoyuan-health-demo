@@ -500,6 +500,7 @@ html {
   --el-dropdown-menuItem-hover-color: #C9A962 !important;
   --el-border-color-light: transparent !important;
   --el-bg-color-overlay: transparent !important;
+  --el-border-color: transparent !important;
 }
 
 .user-dropdown-popper.el-popper {
@@ -513,9 +514,14 @@ html {
   border: none !important;
 }
 
+.user-dropdown-popper.el-popper.is-light .el-popper__arrow::before {
+  background: transparent !important;
+  border: none !important;
+}
+
 .user-dropdown-popper .el-dropdown-menu {
   background: linear-gradient(135deg, #1a2a4a 0%, #243656 100%) !important;
-  border: 1px solid rgba(201, 169, 98, 0.3) !important;
+  border: none !important;
   border-radius: 12px !important;
   padding: 8px !important;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4) !important;

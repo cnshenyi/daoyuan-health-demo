@@ -340,12 +340,16 @@ const handleLogout = () => {
   border-radius: var(--radius-md);
   transition: all 0.3s ease;
   outline: none;
+  background: transparent !important;
+  border: none;
 }
 
 .user-info:focus,
-.user-info:focus-visible {
+.user-info:focus-visible,
+.user-info:active {
   outline: none;
   box-shadow: none;
+  background: transparent !important;
 }
 
 .user-info :deep(.el-avatar) {
@@ -354,7 +358,18 @@ const handleLogout = () => {
 }
 
 .user-info:hover {
-  background-color: var(--color-bg-tertiary);
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 头像按钮容器 - 去掉白色背景 */
+.header-right :deep(.el-dropdown) {
+  background: transparent;
+}
+
+.header-right :deep(.el-dropdown .el-tooltip__trigger) {
+  background: transparent;
+  border: none;
+  padding: 0;
 }
 
 .username {

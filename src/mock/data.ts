@@ -32,7 +32,7 @@ export const mockMemberInfo: MemberInfo = {
   occupation: '企业高管',
   maritalStatus: '已婚',
   membershipType: 'premium',
-  membershipFee: 1700000,
+  membershipFee: 1200000,
   joinDate: '2025-12-01'
 }
 
