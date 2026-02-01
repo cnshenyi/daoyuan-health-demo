@@ -1,5 +1,17 @@
 <template>
   <div class="page-container health-records">
+    <!-- 顶部返回栏 -->
+    <div class="page-nav-bar">
+      <button class="back-button" @click="$router.back()">
+        <svg viewBox="0 0 24 24" fill="none" class="back-icon">
+          <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>返回</span>
+      </button>
+      <h1 class="page-nav-title">健康档案</h1>
+      <div class="nav-placeholder"></div>
+    </div>
+
     <!-- 标签页导航 - 深蓝底金色图标 -->
     <div class="tabs-wrapper">
       <div class="tab-buttons">
@@ -286,6 +298,54 @@ const getStatusText = (status: string) => {
 <style scoped>
 .health-records {
   padding-bottom: var(--spacing-2xl);
+}
+
+/* 顶部返回栏 */
+.page-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-xs) 0;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+  background: rgba(30, 58, 95, 0.1);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #1E3A5F;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.back-button:hover {
+  background: rgba(30, 58, 95, 0.15);
+}
+
+.back-button:active {
+  transform: scale(0.95);
+}
+
+.back-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.page-nav-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  font-family: var(--font-display);
+}
+
+.nav-placeholder {
+  width: 70px; /* 和返回按钮宽度相近，保持标题居中 */
 }
 
 /* 标签页导航 - 深蓝底金色图标 */
