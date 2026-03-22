@@ -3,15 +3,9 @@
     <!-- 顶部欢迎区 -->
     <div class="welcome-section">
       <div class="welcome-top">
-        <div class="welcome-left">
-          <p class="welcome-date">{{ todayStr }}</p>
-          <h1 class="welcome-name">{{ greeting }}，{{ userStore.user?.name }}</h1>
-          <p class="welcome-hint">今日有 <strong>{{ urgentCount }}</strong> 位会员需要重点关注</p>
-        </div>
-        <div class="welcome-avatar">
-          <img v-if="userStore.user?.avatar" :src="userStore.user.avatar" alt="头像" />
-          <span v-else>{{ userStore.user?.name?.slice(-1) }}</span>
-        </div>
+        <p class="welcome-date">{{ todayStr }}</p>
+        <h1 class="welcome-name">{{ greeting }}，{{ userStore.user?.name }}</h1>
+        <p class="welcome-hint">今日有 <strong>{{ urgentCount }}</strong> 位会员需要重点关注</p>
       </div>
 
       <!-- 快捷统计 -->
@@ -70,7 +64,7 @@
         <span class="section-badge urgent-badge">{{ urgentMembers.length }}</span>
       </div>
       <div class="urgent-list">
-        <div v-for="m in urgentMembers" :key="m.id" class="urgent-card">
+        <div v-for="m in urgentMembers" :key="m.id" class="urgent-card" @click="goMember(m.id)">
           <div class="member-avatar" :class="m.gender">{{ m.name.slice(-1) }}</div>
           <div class="member-info">
             <div class="member-name-row">
@@ -91,7 +85,7 @@
         <span class="section-more">{{ memberProfiles.length }}位</span>
       </div>
       <div class="member-list">
-        <div v-for="m in memberProfiles" :key="m.id" class="member-card">
+        <div v-for="m in memberProfiles" :key="m.id" class="member-card" @click="goMember(m.id)">
           <div class="member-avatar" :class="m.gender">{{ m.name.slice(-1) }}</div>
           <div class="member-info">
             <div class="member-name-row">
@@ -110,9 +104,11 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { mockMemberProfiles } from '@/mock/data'
 
+const router = useRouter()
 const userStore = useUserStore()
 const memberProfiles = mockMemberProfiles
 
@@ -144,6 +140,8 @@ const todayTodos = [
   { id: 3, text: '沈轶 - 血糖数据周报发送', member: '沈轶', time: '16:00', priority: 'attention', done: false },
   { id: 4, text: '张慧敏 - 体检报告回访', member: '张慧敏', time: '已完成', priority: 'stable', done: true },
 ]
+
+const goMember = (id: string) => router.push('/manager/members/' + id)
 </script>
 
 <style scoped>
@@ -156,68 +154,38 @@ const todayTodos = [
 /* ========== 欢迎区 ========== */
 .welcome-section {
   background: linear-gradient(145deg, #2E8B57 0%, #1a6b3c 100%);
-  padding: 20px 16px 0;
+  padding: 16px 16px 0;
   border-radius: 0 0 24px 24px;
 }
 
 .welcome-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 20px;
-}
-
-.welcome-left {
-  flex: 1;
+  margin-bottom: 14px;
 }
 
 .welcome-date {
-  font-size: 12px;
-  color: rgba(255,255,255,0.65);
-  margin: 0 0 4px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  margin: 0 0 3px;
   letter-spacing: 0.5px;
 }
 
 .welcome-name {
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 700;
   color: #fff;
-  margin: 0 0 6px;
+  margin: 0 0 4px;
   line-height: 1.3;
 }
 
 .welcome-hint {
-  font-size: 13px;
-  color: rgba(255,255,255,0.75);
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
   margin: 0;
 }
 
 .welcome-hint strong {
   color: #FFD580;
   font-weight: 700;
-}
-
-.welcome-avatar {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.2);
-  border: 2px solid rgba(255,255,255,0.4);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  font-weight: 700;
-  color: #fff;
-  flex-shrink: 0;
-  margin-left: 12px;
-}
-
-.welcome-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 /* 快捷统计条 */
@@ -376,6 +344,13 @@ const todayTodos = [
   border-radius: 10px;
   padding: 12px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.urgent-card:active,
+.member-card:active {
+  transform: scale(0.98);
 }
 
 .urgent-card {

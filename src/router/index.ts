@@ -77,6 +77,36 @@ const routes: RouteRecordRaw[] = [
         path: '',
         name: 'ManagerDashboard',
         component: () => import('@/views/manager/ManagerDashboard.vue')
+      },
+      {
+        path: 'members',
+        name: 'MemberList',
+        component: () => import('@/views/manager/MemberList.vue')
+      },
+      {
+        path: 'members/:id',
+        name: 'MemberDetail',
+        component: () => import('@/views/manager/MemberDetail.vue')
+      },
+      {
+        path: 'tasks',
+        name: 'ManagerTasks',
+        component: () => import('@/views/manager/ManagerTasks.vue')
+      },
+      {
+        path: 'messages',
+        name: 'ManagerMessages',
+        component: () => import('@/views/manager/ManagerMessages.vue')
+      },
+      {
+        path: 'notes/:id',
+        name: 'ManagerNotes',
+        component: () => import('@/views/manager/ManagerNotes.vue')
+      },
+      {
+        path: 'notes/new',
+        name: 'ManagerNotesNew',
+        component: () => import('@/views/manager/ManagerNotes.vue')
       }
     ]
   },
