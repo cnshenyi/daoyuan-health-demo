@@ -8,7 +8,12 @@
     <!-- 量表列表 -->
     <div class="scale-list">
       <div v-for="s in filteredScales" :key="s.id" class="scale-card" @click="router.push('/mental/assessments/' + s.id)">
-        <div class="scale-icon" :style="{ background: s.color + '15', color: s.color }">{{ s.icon }}</div>
+        <div class="scale-icon" :style="{ background: s.color + '15', color: s.color }">
+          <svg v-if="s.icon === 'depression'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M8 15s1.5-2 4-2 4 2 4 2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          <svg v-else-if="s.icon === 'anxiety'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M8 15h8"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          <svg v-else-if="s.icon === 'sleep'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg v-else-if="s.icon === 'stress'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
         <div class="scale-info">
           <div class="scale-top"><span class="scale-name">{{ s.name }}</span><span :class="['scale-status', s.status]">{{ statusLabel[s.status] }}</span></div>
           <p class="scale-member">{{ s.memberName }} · {{ s.scaleName }}</p>
@@ -35,7 +40,12 @@
         <div class="check-grid">
           <label v-for="s in scaleOptions" :key="s.value" class="check-item" :class="newForm.scales.includes(s.value) && 'checked'">
             <input type="checkbox" :value="s.value" v-model="newForm.scales" hidden />
-            <span class="check-icon">{{ s.icon }}</span>
+            <span class="check-icon" :style="{ color: s.color }">
+              <svg v-if="s.icon === 'depression'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M8 15s1.5-2 4-2 4 2 4 2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+              <svg v-else-if="s.icon === 'anxiety'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M8 15h8"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+              <svg v-else-if="s.icon === 'sleep'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+              <svg v-else-if="s.icon === 'stress'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </span>
             <span class="check-name">{{ s.label }}</span>
           </label>
         </div>
@@ -80,12 +90,12 @@ const statusLabel: Record<string, string> = { pending: '待评估', completed: '
 
 const memberOptions = ['赵晓雯', '沈轶', '王芳', '陈建国', '吴大伟', '刘静', '张慧敏']
 const scaleOptions = [
-  { value: 'phq9', label: 'PHQ-9 抑郁', icon: '😔' },
-  { value: 'gad7', label: 'GAD-7 焦虑', icon: '😰' },
-  { value: 'psqi', label: 'PSQI 睡眠', icon: '😴' },
-  { value: 'pss10', label: 'PSS-10 压力', icon: '😤' },
-  { value: 'sas', label: 'SAS 焦虑自评', icon: '😟' },
-  { value: 'sds', label: 'SDS 抑郁自评', icon: '😞' },
+  { value: 'phq9', label: 'PHQ-9 抑郁', icon: 'depression', color: '#1E3A5F' },
+  { value: 'gad7', label: 'GAD-7 焦虑', icon: 'anxiety', color: '#8E44AD' },
+  { value: 'psqi', label: 'PSQI 睡眠', icon: 'sleep', color: '#2E8B57' },
+  { value: 'pss10', label: 'PSS-10 压力', icon: 'stress', color: '#E67E22' },
+  { value: 'sas', label: 'SAS 焦虑自评', icon: 'anxiety', color: '#8E44AD' },
+  { value: 'sds', label: 'SDS 抑郁自评', icon: 'depression', color: '#1E3A5F' },
 ]
 const urgencyOptions = [
   { value: 'normal', label: '常规' },
@@ -105,14 +115,14 @@ const submitAssess = () => {
 }
 
 const scales = [
-  { id: 'as-1', memberName: '赵晓雯', scaleName: 'PHQ-9 抑郁量表', name: '抑郁筛查', icon: '😔', color: '#1E3A5F', status: 'completed', score: 8, maxScore: 27, scoreColor: '#E67E22', date: '03-20' },
-  { id: 'as-2', memberName: '赵晓雯', scaleName: 'GAD-7 焦虑量表', name: '焦虑评估', icon: '😰', color: '#8E44AD', status: 'completed', score: 12, maxScore: 21, scoreColor: '#E53935', date: '03-20' },
-  { id: 'as-3', memberName: '沈轶', scaleName: 'PSQI 睡眠质量', name: '睡眠评估', icon: '😴', color: '#2E8B57', status: 'review', score: 9, maxScore: 21, scoreColor: '#E67E22', date: '03-15' },
-  { id: 'as-4', memberName: '王芳', scaleName: 'PSQI 睡眠质量', name: '睡眠评估', icon: '😴', color: '#2E8B57', status: 'completed', score: 14, maxScore: 21, scoreColor: '#E53935', date: '03-18' },
-  { id: 'as-5', memberName: '陈建国', scaleName: '压力感知量表 PSS-10', name: '压力评估', icon: '😤', color: '#E67E22', status: 'pending', score: null, maxScore: 40, scoreColor: '', date: '待安排' },
-  { id: 'as-6', memberName: '吴大伟', scaleName: 'PHQ-9 抑郁量表', name: '抑郁筛查', icon: '😔', color: '#1E3A5F', status: 'pending', score: null, maxScore: 27, scoreColor: '', date: '待安排' },
-  { id: 'as-7', memberName: '赵晓雯', scaleName: 'GAD-7 焦虑量表', name: '焦虑复评', icon: '😰', color: '#8E44AD', status: 'review', score: 12, maxScore: 21, scoreColor: '#E53935', date: '03-20' },
-  { id: 'as-8', memberName: '刘静', scaleName: '压力感知量表 PSS-10', name: '压力评估', icon: '😤', color: '#E67E22', status: 'completed', score: 18, maxScore: 40, scoreColor: '#E67E22', date: '03-16' },
+  { id: 'as-1', memberName: '赵晓雯', scaleName: 'PHQ-9 抑郁量表', name: '抑郁筛查', icon: 'depression', color: '#1E3A5F', status: 'completed', score: 8, maxScore: 27, scoreColor: '#E67E22', date: '03-20' },
+  { id: 'as-2', memberName: '赵晓雯', scaleName: 'GAD-7 焦虑量表', name: '焦虑评估', icon: 'anxiety', color: '#8E44AD', status: 'completed', score: 12, maxScore: 21, scoreColor: '#E53935', date: '03-20' },
+  { id: 'as-3', memberName: '沈轶', scaleName: 'PSQI 睡眠质量', name: '睡眠评估', icon: 'sleep', color: '#2E8B57', status: 'review', score: 9, maxScore: 21, scoreColor: '#E67E22', date: '03-15' },
+  { id: 'as-4', memberName: '王芳', scaleName: 'PSQI 睡眠质量', name: '睡眠评估', icon: 'sleep', color: '#2E8B57', status: 'completed', score: 14, maxScore: 21, scoreColor: '#E53935', date: '03-18' },
+  { id: 'as-5', memberName: '陈建国', scaleName: '压力感知量表 PSS-10', name: '压力评估', icon: 'stress', color: '#E67E22', status: 'pending', score: null, maxScore: 40, scoreColor: '', date: '待安排' },
+  { id: 'as-6', memberName: '吴大伟', scaleName: 'PHQ-9 抑郁量表', name: '抑郁筛查', icon: 'depression', color: '#1E3A5F', status: 'pending', score: null, maxScore: 27, scoreColor: '', date: '待安排' },
+  { id: 'as-7', memberName: '赵晓雯', scaleName: 'GAD-7 焦虑量表', name: '焦虑复评', icon: 'anxiety', color: '#8E44AD', status: 'review', score: 12, maxScore: 21, scoreColor: '#E53935', date: '03-20' },
+  { id: 'as-8', memberName: '刘静', scaleName: '压力感知量表 PSS-10', name: '压力评估', icon: 'stress', color: '#E67E22', status: 'completed', score: 18, maxScore: 40, scoreColor: '#E67E22', date: '03-16' },
 ]
 
 const filteredScales = computed(() => activeFilter.value === 'all' ? scales : scales.filter(s => s.status === activeFilter.value))
@@ -128,7 +138,8 @@ const filteredScales = computed(() => activeFilter.value === 'all' ? scales : sc
 .scale-list { display: flex; flex-direction: column; gap: 8px; }
 .scale-card { display: flex; gap: 12px; background: #fff; border-radius: 12px; padding: 14px; cursor: pointer; }
 .scale-card:active { transform: scale(0.98); }
-.scale-icon { width: 42px; height: 42px; border-radius: 12px; font-size: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.scale-icon { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.scale-icon svg { width: 20px; height: 20px; }
 .scale-info { flex: 1; min-width: 0; }
 .scale-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px; }
 .scale-name { font-size: 14px; font-weight: 600; color: #333; }
@@ -150,7 +161,8 @@ const filteredScales = computed(() => activeFilter.value === 'all' ? scales : sc
 .check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .check-item { display: flex; align-items: center; gap: 8px; padding: 10px; border: 1px solid #e8e8e8; border-radius: 10px; cursor: pointer; }
 .check-item.checked { border-color: #8E44AD; background: rgba(142,68,173,0.05); }
-.check-icon { font-size: 18px; }
+.check-icon { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.check-icon svg { width: 18px; height: 18px; }
 .check-name { font-size: 12px; color: #333; font-weight: 500; }
 .form-textarea { width: 100%; border: 1px solid #e8e8e8; border-radius: 8px; padding: 10px 12px; font-size: 13px; color: #333; background: #f8f9fb; outline: none; resize: none; font-family: inherit; box-sizing: border-box; }
 .form-textarea:focus { border-color: #8E44AD; }

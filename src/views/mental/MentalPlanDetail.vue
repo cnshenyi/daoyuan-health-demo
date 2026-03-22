@@ -29,7 +29,12 @@
     <div class="section">
       <h4 class="sec-title">治疗方案</h4>
       <div v-for="s in strategies" :key="s.name" class="strategy-card">
-        <span class="strategy-icon">{{ s.icon }}</span>
+        <span class="strategy-icon" :style="{ background: s.color + '15', color: s.color }">
+          <svg v-if="s.icon === 'brain'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z"/><line x1="9" y1="21" x2="15" y2="21"/></svg>
+          <svg v-else-if="s.icon === 'education'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          <svg v-else-if="s.icon === 'counseling'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <svg v-else-if="s.icon === 'target'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        </span>
         <div class="strategy-info">
           <span class="strategy-name">{{ s.name }}</span>
           <p class="strategy-desc">{{ s.desc }}</p>
@@ -102,10 +107,10 @@ const goals = [
 ]
 
 const strategies = [
-  { icon: '🧠', name: '认知重构', desc: '识别自动化负面思维，用理性思维替代', frequency: '每次咨询' },
-  { icon: '📝', name: '思维记录', desc: '记录触发事件、自动思维、情绪反应和理性回应', frequency: '每日练习' },
-  { icon: '🧘', name: '放松训练', desc: '渐进式肌肉放松 + 腹式呼吸练习', frequency: '每日2次' },
-  { icon: '🎯', name: '行为实验', desc: '设计安全情境验证负面预期的准确性', frequency: '每周1次' },
+  { icon: 'brain', name: '认知重构', desc: '识别自动化负面思维，用理性思维替代', frequency: '每次咨询', color: '#8E44AD' },
+  { icon: 'education', name: '思维记录', desc: '记录触发事件、自动思维、情绪反应和理性回应', frequency: '每日练习', color: '#1E3A5F' },
+  { icon: 'counseling', name: '放松训练', desc: '渐进式肌肉放松 + 腹式呼吸练习', frequency: '每日2次', color: '#2E8B57' },
+  { icon: 'target', name: '行为实验', desc: '设计安全情境验证负面预期的准确性', frequency: '每周1次', color: '#E67E22' },
 ]
 
 const records = [
@@ -151,7 +156,8 @@ const showToast = (msg: string) => { toastMsg.value = msg; toastVisible.value = 
 .goal-target { font-size: 11px; color: #999; }
 .strategy-card { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f5f5f5; }
 .strategy-card:last-child { border: none; }
-.strategy-icon { font-size: 24px; flex-shrink: 0; }
+.strategy-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.strategy-icon svg { width: 18px; height: 18px; }
 .strategy-info { flex: 1; }
 .strategy-name { font-size: 13px; font-weight: 600; color: #333; display: block; }
 .strategy-desc { font-size: 12px; color: #666; margin: 2px 0; }

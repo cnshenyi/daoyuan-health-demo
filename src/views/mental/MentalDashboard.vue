@@ -27,7 +27,12 @@
     <h3 class="section-title">今日待办</h3>
     <div class="todo-list">
       <div v-for="t in todos" :key="t.id" class="todo-card" @click="t.action && router.push(t.action)">
-        <span class="todo-icon" :style="{ background: t.color + '15', color: t.color }">{{ t.icon }}</span>
+        <span class="todo-icon" :style="{ background: t.color + '15', color: t.color }">
+          <svg v-if="t.icon === 'counseling'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <svg v-else-if="t.icon === 'sleep'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg v-else-if="t.icon === 'education'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          <svg v-else-if="t.icon === 'brain'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z"/><line x1="9" y1="21" x2="15" y2="21"/></svg>
+        </span>
         <div class="todo-info">
           <span class="todo-title">{{ t.title }}</span>
           <span class="todo-desc">{{ t.desc }}</span>
@@ -73,10 +78,10 @@ const greeting = hour < 12 ? '早上好' : hour < 18 ? '下午好' : '晚上好'
 const todayStr = `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日 ${'日一二三四五六'[now.getDay()]}曜日`
 
 const todos = [
-  { id: 1, icon: '🧘', title: '赵晓雯 - CBT第5次', desc: '焦虑情绪管理·认知重构练习', time: '10:00', color: '#8E44AD', action: '/mental/plans/mp-1' },
-  { id: 2, icon: '😴', title: '沈轶 - 睡眠评估复评', desc: 'PSQI量表·上次评分9分', time: '14:00', color: '#2E8B57', action: '/mental/assessments' },
-  { id: 3, icon: '📝', title: '吴大伟 - 糖尿病教育', desc: '第2次健康教育课程', time: '15:30', color: '#E67E22', action: '/mental/plans/mp-5' },
-  { id: 4, icon: '🧠', title: '王芳 - 失眠认知干预', desc: '第3次咨询·睡眠日记回顾', time: '16:30', color: '#1E3A5F', action: '/mental/plans/mp-4' },
+  { id: 1, icon: 'counseling', title: '赵晓雯 - CBT第5次', desc: '焦虑情绪管理·认知重构练习', time: '10:00', color: '#8E44AD', action: '/mental/plans/mp-1' },
+  { id: 2, icon: 'sleep', title: '沈轶 - 睡眠评估复评', desc: 'PSQI量表·上次评分9分', time: '14:00', color: '#2E8B57', action: '/mental/assessments' },
+  { id: 3, icon: 'education', title: '吴大伟 - 糖尿病教育', desc: '第2次健康教育课程', time: '15:30', color: '#E67E22', action: '/mental/plans/mp-5' },
+  { id: 4, icon: 'brain', title: '王芳 - 失眠认知干预', desc: '第3次咨询·睡眠日记回顾', time: '16:30', color: '#1E3A5F', action: '/mental/plans/mp-4' },
 ]
 </script>
 
@@ -95,7 +100,8 @@ const todos = [
 .todo-list { padding: 0 16px 8px; display: flex; flex-direction: column; gap: 6px; }
 .todo-card { display: flex; align-items: center; gap: 10px; background: #fff; border-radius: 10px; padding: 12px; cursor: pointer; }
 .todo-card:active { transform: scale(0.98); }
-.todo-icon { width: 36px; height: 36px; border-radius: 10px; font-size: 18px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.todo-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.todo-icon svg { width: 18px; height: 18px; }
 .todo-info { flex: 1; min-width: 0; }
 .todo-title { font-size: 13px; font-weight: 600; color: #333; display: block; }
 .todo-desc { font-size: 11px; color: #999; display: block; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

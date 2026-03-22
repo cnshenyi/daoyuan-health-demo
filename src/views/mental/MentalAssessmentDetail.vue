@@ -55,7 +55,12 @@
     <div class="section">
       <h4 class="sec-title">建议措施</h4>
       <div v-for="(s, i) in suggestions" :key="i" class="suggest-card">
-        <span class="suggest-icon">{{ s.icon }}</span>
+        <span class="suggest-icon" :style="{ background: s.color + '15', color: s.color }">
+          <svg v-if="s.icon === 'counseling'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <svg v-else-if="s.icon === 'education'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          <svg v-else-if="s.icon === 'exercise'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M4 17l4-4 2 2 4-6 2 2 4-4"/><line x1="4" y1="21" x2="20" y2="21"/></svg>
+          <svg v-else-if="s.icon === 'sleep'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </span>
         <div class="suggest-info"><span class="suggest-title">{{ s.title }}</span><p class="suggest-desc">{{ s.desc }}</p></div>
       </div>
     </div>
@@ -103,10 +108,10 @@ const history = [
 const trendDir = computed(() => history[history.length-1].score <= history[history.length-2].score ? 'down' : 'up')
 
 const suggestions = [
-  { icon: '🧘', title: '正念冥想', desc: '每日10-15分钟正念练习，缓解焦虑情绪' },
-  { icon: '📝', title: '认知行为训练', desc: '识别负面自动思维，建立积极认知模式' },
-  { icon: '🏃', title: '规律运动', desc: '每周3-5次有氧运动，每次30分钟以上' },
-  { icon: '😴', title: '睡眠改善', desc: '固定作息时间，睡前1小时避免电子设备' },
+  { icon: 'counseling', title: '正念冥想', desc: '每日10-15分钟正念练习，缓解焦虑情绪', color: '#8E44AD' },
+  { icon: 'education', title: '认知行为训练', desc: '识别负面自动思维，建立积极认知模式', color: '#1E3A5F' },
+  { icon: 'exercise', title: '规律运动', desc: '每周3-5次有氧运动，每次30分钟以上', color: '#2E8B57' },
+  { icon: 'sleep', title: '睡眠改善', desc: '固定作息时间，睡前1小时避免电子设备', color: '#E67E22' },
 ]
 
 const toastVisible = ref(false)
@@ -154,7 +159,8 @@ const showToast = (msg: string) => { toastMsg.value = msg; toastVisible.value = 
 .change-label { font-size: 12px; color: #666; margin-left: 4px; }
 .suggest-card { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f5f5f5; }
 .suggest-card:last-child { border: none; }
-.suggest-icon { font-size: 24px; flex-shrink: 0; }
+.suggest-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.suggest-icon svg { width: 18px; height: 18px; }
 .suggest-info { flex: 1; }
 .suggest-title { font-size: 13px; font-weight: 600; color: #333; display: block; margin-bottom: 2px; }
 .suggest-desc { font-size: 12px; color: #999; margin: 0; }
