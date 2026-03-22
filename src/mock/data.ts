@@ -8,7 +8,9 @@ import type {
   TeamMember,
   ConsultationRecord,
   ServiceProject,
-  HealthTrackingItem
+  HealthTrackingItem,
+  RoleOption,
+  MemberProfile
 } from '@/types'
 
 // 当前用户
@@ -552,5 +554,203 @@ export const mockHealthTrackingItems: HealthTrackingItem[] = [
     progress: 55,
     lastUpdate: '2025-12-01-21',
     assignedTo: '林雅婷'
+  }
+]
+
+// ============================================================
+// 角色选项
+// ============================================================
+
+export const roleOptions: RoleOption[] = [
+  {
+    role: 'member',
+    label: '会员',
+    description: '查看个人健康数据与服务',
+    icon: '👤',
+    color: '#C9A962'
+  },
+  {
+    role: 'health-manager',
+    label: '健康管家',
+    description: '管理会员日常健康跟踪',
+    icon: '🏥',
+    color: '#2E8B57'
+  },
+  {
+    role: 'doctor',
+    label: '医生',
+    description: '全科/专科诊疗与处方',
+    icon: '⚕️',
+    color: '#1E3A5F'
+  },
+  {
+    role: 'wellness',
+    label: '营养与康复',
+    description: '营养方案与运动康复指导',
+    icon: '🥗',
+    color: '#E67E22'
+  },
+  {
+    role: 'mental-education',
+    label: '心理与教育',
+    description: '心理辅导与健康教育',
+    icon: '🧠',
+    color: '#8E44AD'
+  }
+]
+
+// ============================================================
+// 10 个会员档案（沈轶为主会员 id='1'）
+// ============================================================
+export const mockMemberProfiles: MemberProfile[] = [
+  {
+    id: '1',
+    name: '沈轶',
+    age: 45,
+    gender: 'male',
+    phone: '138 0000 0001',
+    membershipType: 'premium',
+    joinDate: '2025-06-01',
+    primaryDiagnosis: ['2型糖尿病', '高血压', '高血脂'],
+    healthScore: 72,
+    lastCheckIn: '2026-03-20',
+    assignedManager: '林雅婷',
+    assignedDoctor: '李明华',
+    status: 'attention'
+  },
+  {
+    id: '2',
+    name: '张慧敏',
+    age: 38,
+    gender: 'female',
+    phone: '138 0000 0002',
+    membershipType: 'premium',
+    joinDate: '2025-07-15',
+    primaryDiagnosis: ['甲状腺功能减退', '轻度贫血'],
+    healthScore: 81,
+    lastCheckIn: '2026-03-21',
+    assignedManager: '林雅婷',
+    assignedDoctor: '王志强',
+    status: 'stable'
+  },
+  {
+    id: '3',
+    name: '陈建国',
+    age: 52,
+    gender: 'male',
+    phone: '138 0000 0003',
+    membershipType: 'premium',
+    joinDate: '2025-05-20',
+    primaryDiagnosis: ['冠心病', '高血压', '痛风'],
+    healthScore: 65,
+    lastCheckIn: '2026-03-19',
+    assignedManager: '林雅婷',
+    assignedDoctor: '李明华',
+    status: 'urgent'
+  },
+  {
+    id: '4',
+    name: '王芳',
+    age: 41,
+    gender: 'female',
+    phone: '138 0000 0004',
+    membershipType: 'standard',
+    joinDate: '2025-09-01',
+    primaryDiagnosis: ['颈椎病', '失眠'],
+    healthScore: 78,
+    lastCheckIn: '2026-03-18',
+    assignedManager: '林雅婷',
+    assignedDoctor: '李明华',
+    status: 'stable'
+  },
+  {
+    id: '5',
+    name: '李志远',
+    age: 58,
+    gender: 'male',
+    phone: '138 0000 0005',
+    membershipType: 'premium',
+    joinDate: '2025-04-10',
+    primaryDiagnosis: ['2型糖尿病', '慢性肾病3期'],
+    healthScore: 61,
+    lastCheckIn: '2026-03-22',
+    assignedManager: '林雅婷',
+    assignedDoctor: '王志强',
+    status: 'urgent'
+  },
+  {
+    id: '6',
+    name: '赵晓雯',
+    age: 33,
+    gender: 'female',
+    phone: '138 0000 0006',
+    membershipType: 'standard',
+    joinDate: '2025-10-15',
+    primaryDiagnosis: ['亚健康', '焦虑症'],
+    healthScore: 85,
+    lastCheckIn: '2026-03-20',
+    assignedManager: '林雅婷',
+    assignedDoctor: '李明华',
+    status: 'stable'
+  },
+  {
+    id: '7',
+    name: '吴大伟',
+    age: 47,
+    gender: 'male',
+    phone: '138 0000 0007',
+    membershipType: 'premium',
+    joinDate: '2025-06-20',
+    primaryDiagnosis: ['高血脂', '脂肪肝', '肥胖'],
+    healthScore: 69,
+    lastCheckIn: '2026-03-17',
+    assignedManager: '林雅婷',
+    assignedDoctor: '李明华',
+    status: 'attention'
+  },
+  {
+    id: '8',
+    name: '刘静',
+    age: 35,
+    gender: 'female',
+    phone: '138 0000 0008',
+    membershipType: 'standard',
+    joinDate: '2025-11-01',
+    primaryDiagnosis: ['多囊卵巢综合征', '胰岛素抵抗'],
+    healthScore: 74,
+    lastCheckIn: '2026-03-21',
+    assignedManager: '林雅婷',
+    assignedDoctor: '王志强',
+    status: 'attention'
+  },
+  {
+    id: '9',
+    name: '周明',
+    age: 62,
+    gender: 'male',
+    phone: '138 0000 0009',
+    membershipType: 'premium',
+    joinDate: '2025-03-15',
+    primaryDiagnosis: ['心房颤动', '高血压', '骨质疏松'],
+    healthScore: 63,
+    lastCheckIn: '2026-03-16',
+    assignedManager: '林雅婷',
+    assignedDoctor: '李明华',
+    status: 'urgent'
+  },
+  {
+    id: '10',
+    name: '孙婷婷',
+    age: 29,
+    gender: 'female',
+    phone: '138 0000 0010',
+    membershipType: 'standard',
+    joinDate: '2026-01-05',
+    primaryDiagnosis: ['亚健康调理'],
+    healthScore: 88,
+    lastCheckIn: '2026-03-22',
+    assignedManager: '林雅婷',
+    assignedDoctor: '李明华',
+    status: 'stable'
   }
 ]

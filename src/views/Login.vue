@@ -7,77 +7,107 @@
 
     <!-- 登录表单区域 -->
     <div class="login-body">
-      <h2 class="login-title">会员登录</h2>
+      <!-- 步骤一：手机号 + 验证码 -->
+      <template v-if="step === 1">
+        <h2 class="login-title">登录</h2>
 
-      <el-form
-        ref="loginFormRef"
-        :model="loginForm"
-        :rules="rules"
-        class="login-form"
-        @submit.prevent="handleLogin"
-      >
-        <!-- 手机号 -->
-        <el-form-item prop="phone">
-          <el-input
-            v-model="loginForm.phone"
-            placeholder="请输入手机号"
-            maxlength="11"
-            clearable
-          >
-            <template #prefix>
-              <el-icon class="input-icon"><Phone /></el-icon>
-            </template>
-          </el-input>
-        </el-form-item>
-
-        <!-- 验证码 -->
-        <el-form-item prop="code">
-          <div class="code-row">
+        <el-form
+          ref="loginFormRef"
+          :model="loginForm"
+          :rules="rules"
+          class="login-form"
+          @submit.prevent="handleNextStep"
+        >
+          <el-form-item prop="phone">
             <el-input
-              v-model="loginForm.code"
-              placeholder="请输入验证码"
-              maxlength="6"
+              v-model="loginForm.phone"
+              placeholder="请输入手机号"
+              maxlength="11"
               clearable
-              @keyup.enter="handleLogin"
             >
               <template #prefix>
-                <el-icon class="input-icon"><Key /></el-icon>
+                <el-icon class="input-icon"><Phone /></el-icon>
               </template>
             </el-input>
-            <el-button
-              class="send-code-btn"
-              :disabled="codeSent"
-              @click="handleSendCode"
-            >
-              {{ codeSent ? `${countdown}s后重发` : '获取验证码' }}
-            </el-button>
-          </div>
-        </el-form-item>
+          </el-form-item>
 
-        <!-- 验证码提示 -->
-        <div v-if="mockCode" class="code-hint">
-          <span class="hint-icon">📱</span>
-          <span>演示验证码：<strong class="code-value">{{ mockCode }}</strong></span>
+          <el-form-item prop="code">
+            <div class="code-row">
+              <el-input
+                v-model="loginForm.code"
+                placeholder="请输入验证码"
+                maxlength="6"
+                clearable
+                @keyup.enter="handleNextStep"
+              >
+                <template #prefix>
+                  <el-icon class="input-icon"><Key /></el-icon>
+                </template>
+              </el-input>
+              <el-button
+                class="send-code-btn"
+                :disabled="codeSent"
+                @click="handleSendCode"
+              >
+                {{ codeSent ? `${countdown}s后重发` : '获取验证码' }}
+              </el-button>
+            </div>
+          </el-form-item>
+
+          <div v-if="mockCode" class="code-hint">
+            <span class="hint-icon">📱</span>
+            <span>演示验证码：<strong class="code-value">{{ mockCode }}</strong></span>
+          </div>
+
+          <el-form-item style="margin-top: 4px;">
+            <el-button
+              type="primary"
+              class="login-button"
+              @click="handleNextStep"
+            >
+              下一步
+            </el-button>
+          </el-form-item>
+        </el-form>
+
+        <div class="demo-notice">
+          <span class="notice-dot"></span>
+          <span>演示模式：输入任意手机号，点击获取验证码</span>
+        </div>
+      </template>
+
+      <!-- 步骤二：选择角色 -->
+      <template v-if="step === 2">
+        <h2 class="login-title">选择身份</h2>
+
+        <div class="role-grid">
+          <div
+            v-for="item in roleOptions"
+            :key="item.role"
+            :class="['role-card', { active: selectedRole === item.role }]"
+            @click="selectedRole = item.role"
+          >
+            <span class="role-icon">{{ item.icon }}</span>
+            <span class="role-label">{{ item.label }}</span>
+            <span class="role-desc">{{ item.description }}</span>
+            <span v-if="selectedRole === item.role" class="role-check">✓</span>
+          </div>
         </div>
 
-        <el-form-item style="margin-top: 4px;">
+        <div class="step2-actions">
+          <el-button class="back-button" @click="step = 1">返回</el-button>
           <el-button
             type="primary"
             :loading="loading"
             class="login-button"
+            :disabled="!selectedRole"
             @click="handleLogin"
           >
             <span v-if="!loading">登 录</span>
             <span v-else>登录中...</span>
           </el-button>
-        </el-form-item>
-      </el-form>
-
-      <!-- 演示提示 -->
-      <div class="demo-notice">
-        <span class="notice-dot"></span>
-        <span>演示模式：输入任意手机号，点击获取验证码即可登录</span>
-      </div>
+        </div>
+      </template>
     </div>
 
     <!-- 底部品牌文字 -->
@@ -94,6 +124,8 @@ import { useUserStore } from '@/stores/user'
 import { ElMessage } from 'element-plus'
 import { Phone, Key } from '@element-plus/icons-vue'
 import type { FormInstance, FormRules } from 'element-plus'
+import type { UserRole } from '@/types'
+import { roleOptions } from '@/mock/data'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -103,6 +135,8 @@ const loading = ref(false)
 const codeSent = ref(false)
 const countdown = ref(60)
 const mockCode = ref('')
+const step = ref(1)
+const selectedRole = ref<UserRole>('member')
 let countdownTimer: ReturnType<typeof setInterval> | null = null
 
 const loginForm = reactive({
@@ -135,7 +169,6 @@ const generateCode = () => {
 const handleSendCode = async () => {
   if (!loginFormRef.value) return
 
-  // 只校验手机号字段
   loginFormRef.value.validateField('phone', (valid) => {
     if (valid) {
       const code = generateCode()
@@ -156,27 +189,39 @@ const handleSendCode = async () => {
   })
 }
 
-const handleLogin = async () => {
+const handleNextStep = async () => {
   if (!loginFormRef.value) return
 
   await loginFormRef.value.validate((valid) => {
     if (valid) {
-      loading.value = true
-
-      setTimeout(() => {
-        const success = userStore.loginWithPhone(loginForm.phone, loginForm.code)
-
-        if (success) {
-          ElMessage.success('登录成功')
-          router.push('/')
-        } else {
-          ElMessage.error('登录失败，请重试')
-        }
-
-        loading.value = false
-      }, 600)
+      step.value = 2
     }
   })
+}
+
+const roleHomeMap: Record<UserRole, string> = {
+  member: '/',
+  'health-manager': '/manager',
+  doctor: '/doctor',
+  wellness: '/wellness',
+  'mental-education': '/mental'
+}
+
+const handleLogin = async () => {
+  loading.value = true
+
+  setTimeout(() => {
+    const success = userStore.loginWithPhone(loginForm.phone, loginForm.code, selectedRole.value)
+
+    if (success) {
+      ElMessage.success('登录成功')
+      router.push(roleHomeMap[selectedRole.value])
+    } else {
+      ElMessage.error('登录失败，请重试')
+    }
+
+    loading.value = false
+  }, 600)
 }
 </script>
 
@@ -216,6 +261,7 @@ const handleLogin = async () => {
   max-width: 400px;
   width: 100%;
   margin: 0 auto;
+  overflow-y: auto;
 }
 
 .login-title {
@@ -347,6 +393,105 @@ const handleLogin = async () => {
   box-shadow: 0 6px 16px rgba(201, 169, 98, 0.4);
 }
 
+/* ========================================
+   角色选择网格
+   ======================================== */
+.role-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.role-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #fff;
+  border: 2px solid #e8e8e8;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s;
+  position: relative;
+}
+
+.role-card:hover {
+  border-color: #C9A962;
+  background: rgba(201, 169, 98, 0.04);
+}
+
+.role-card.active {
+  border-color: #C9A962;
+  background: linear-gradient(135deg, rgba(201, 169, 98, 0.08) 0%, rgba(201, 169, 98, 0.04) 100%);
+  box-shadow: 0 2px 8px rgba(201, 169, 98, 0.2);
+}
+
+.role-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(30, 58, 95, 0.06);
+  border-radius: 8px;
+}
+
+.role-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1E3A5F;
+  white-space: nowrap;
+}
+
+.role-desc {
+  font-size: 12px;
+  color: #999;
+  flex: 1;
+}
+
+.role-check {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  background: #C9A962;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* 步骤二操作按钮 */
+.step2-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.back-button {
+  height: 42px;
+  padding: 0 20px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #ddd;
+  color: #666;
+  flex-shrink: 0;
+}
+
+.back-button:hover {
+  border-color: #1E3A5F;
+  color: #1E3A5F;
+}
+
 /* 演示提示 */
 .demo-notice {
   display: flex;
@@ -412,6 +557,10 @@ const handleLogin = async () => {
   .login-button {
     height: 40px;
     font-size: 14px;
+  }
+
+  .role-card {
+    padding: 10px 12px;
   }
 
   .login-footer {

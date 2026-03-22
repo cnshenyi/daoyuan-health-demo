@@ -9,10 +9,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/Login.vue'),
     meta: { requiresAuth: false }
   },
+  // ========== 会员端 ==========
   {
     path: '/',
     component: () => import('@/components/Layout.vue'),
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true, role: 'member' },
     children: [
       {
         path: '',
@@ -65,6 +66,58 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/views/Profile.vue')
       }
     ]
+  },
+  // ========== 健康管家端 ==========
+  {
+    path: '/manager',
+    component: () => import('@/views/manager/ManagerLayout.vue'),
+    meta: { requiresAuth: true, role: 'health-manager' },
+    children: [
+      {
+        path: '',
+        name: 'ManagerDashboard',
+        component: () => import('@/views/manager/ManagerDashboard.vue')
+      }
+    ]
+  },
+  // ========== 医生端 ==========
+  {
+    path: '/doctor',
+    component: () => import('@/views/doctor/DoctorLayout.vue'),
+    meta: { requiresAuth: true, role: 'doctor' },
+    children: [
+      {
+        path: '',
+        name: 'DoctorDashboard',
+        component: () => import('@/views/doctor/DoctorDashboard.vue')
+      }
+    ]
+  },
+  // ========== 营养与康复端 ==========
+  {
+    path: '/wellness',
+    component: () => import('@/views/wellness/WellnessLayout.vue'),
+    meta: { requiresAuth: true, role: 'wellness' },
+    children: [
+      {
+        path: '',
+        name: 'WellnessDashboard',
+        component: () => import('@/views/wellness/WellnessDashboard.vue')
+      }
+    ]
+  },
+  // ========== 心理与教育端 ==========
+  {
+    path: '/mental',
+    component: () => import('@/views/mental/MentalLayout.vue'),
+    meta: { requiresAuth: true, role: 'mental-education' },
+    children: [
+      {
+        path: '',
+        name: 'MentalDashboard',
+        component: () => import('@/views/mental/MentalDashboard.vue')
+      }
+    ]
   }
 ]
 
@@ -79,7 +132,15 @@ router.beforeEach((to, _from, next) => {
   if (to.meta.requiresAuth && !userStore.isLoggedIn) {
     next('/login')
   } else if (to.path === '/login' && userStore.isLoggedIn) {
-    next('/')
+    // 已登录访问登录页，根据角色跳转
+    const roleHomeMap: Record<string, string> = {
+      member: '/',
+      'health-manager': '/manager',
+      doctor: '/doctor',
+      wellness: '/wellness',
+      'mental-education': '/mental'
+    }
+    next(roleHomeMap[userStore.currentRole] || '/')
   } else {
     next()
   }

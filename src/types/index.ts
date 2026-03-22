@@ -1,3 +1,14 @@
+// 角色类型
+export type UserRole = 'member' | 'health-manager' | 'doctor' | 'wellness' | 'mental-education'
+
+export interface RoleOption {
+  role: UserRole
+  label: string
+  description: string
+  icon: string
+  color: string
+}
+
 // 用户信息
 export interface User {
   id: string
@@ -8,6 +19,25 @@ export interface User {
   membershipType: 'standard' | 'premium'
   membershipStartDate: string
   avatar?: string
+  role?: UserRole
+}
+
+// 简化的会员档案（用于管理端列表）
+export interface MemberProfile {
+  id: string
+  name: string
+  age: number
+  gender: 'male' | 'female'
+  avatar?: string
+  phone: string
+  membershipType: 'standard' | 'premium'
+  joinDate: string
+  primaryDiagnosis: string[]
+  healthScore: number
+  lastCheckIn: string
+  assignedManager: string
+  assignedDoctor: string
+  status: 'stable' | 'attention' | 'urgent'
 }
 
 // 会员信息
