@@ -21,7 +21,6 @@
           <el-input
             v-model="loginForm.phone"
             placeholder="请输入手机号"
-            size="large"
             maxlength="11"
             clearable
           >
@@ -37,7 +36,6 @@
             <el-input
               v-model="loginForm.code"
               placeholder="请输入验证码"
-              size="large"
               maxlength="6"
               clearable
               @keyup.enter="handleLogin"
@@ -48,7 +46,6 @@
             </el-input>
             <el-button
               class="send-code-btn"
-              size="large"
               :disabled="codeSent"
               @click="handleSendCode"
             >
@@ -63,10 +60,9 @@
           <span>演示验证码：<strong class="code-value">{{ mockCode }}</strong></span>
         </div>
 
-        <el-form-item style="margin-top: 8px;">
+        <el-form-item style="margin-top: 4px;">
           <el-button
             type="primary"
-            size="large"
             :loading="loading"
             class="login-button"
             @click="handleLogin"
@@ -197,7 +193,7 @@ const handleLogin = async () => {
 /* 顶部深蓝色区域 */
 .login-header {
   background: linear-gradient(135deg, #1E3A5F 0%, #2a4a6f 100%);
-  padding: 40px 20px;
+  padding: 28px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -205,7 +201,7 @@ const handleLogin = async () => {
 }
 
 .logo-image {
-  width: 200px;
+  width: 160px;
   height: auto;
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
 }
@@ -216,27 +212,28 @@ const handleLogin = async () => {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 24px 20px;
+  padding: 20px 20px;
   max-width: 400px;
   width: 100%;
   margin: 0 auto;
 }
 
 .login-title {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   color: #1E3A5F;
-  margin: 0 0 24px 0;
+  margin: 0 0 16px 0;
   text-align: center;
   letter-spacing: 2px;
 }
 
 .login-form :deep(.el-form-item) {
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .login-form :deep(.el-input__wrapper) {
-  padding: 12px 16px;
+  padding: 0 12px;
+  height: 40px;
   border-radius: 8px;
   box-shadow: none;
   border: 1px solid #e0e0e0;
@@ -277,7 +274,7 @@ const handleLogin = async () => {
 .send-code-btn {
   flex-shrink: 0;
   white-space: nowrap;
-  height: 46px;
+  height: 40px;
   padding: 0 16px;
   font-size: 13px;
   font-weight: 500;
@@ -304,11 +301,11 @@ const handleLogin = async () => {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 14px;
+  padding: 8px 14px;
   background: linear-gradient(135deg, rgba(201,169,98,0.12) 0%, rgba(212,184,122,0.08) 100%);
   border: 1px solid rgba(201, 169, 98, 0.3);
   border-radius: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   font-size: 13px;
   color: #666;
   animation: fadeIn 0.3s ease;
@@ -333,8 +330,8 @@ const handleLogin = async () => {
 
 .login-button {
   width: 100%;
-  height: 48px;
-  font-size: 16px;
+  height: 42px;
+  font-size: 15px;
   font-weight: 600;
   background: linear-gradient(135deg, #C9A962 0%, #D4B87A 100%);
   border: none;
@@ -355,11 +352,11 @@ const handleLogin = async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px;
+  padding: 10px;
   background: rgba(46, 139, 87, 0.08);
   border-radius: 6px;
-  margin-top: 16px;
-  font-size: 13px;
+  margin-top: 12px;
+  font-size: 12px;
   color: #666;
 }
 
@@ -375,7 +372,7 @@ const handleLogin = async () => {
 /* 底部品牌文字 */
 .login-footer {
   background: linear-gradient(135deg, #1E3A5F 0%, #2a4a6f 100%);
-  padding: 16px 20px;
+  padding: 12px 20px;
   text-align: center;
   flex-shrink: 0;
 }
@@ -390,33 +387,35 @@ const handleLogin = async () => {
 /* 移动端适配 */
 @media (max-width: 480px) {
   .login-header {
-    padding: 32px 16px;
+    padding: 24px 16px;
   }
 
   .logo-image {
-    width: 160px;
+    width: 140px;
   }
 
   .login-body {
-    padding: 20px 16px;
+    padding: 16px 16px;
   }
 
   .login-form :deep(.el-input__wrapper) {
-    padding: 10px 14px;
+    padding: 0 10px;
+    height: 38px;
   }
 
   .send-code-btn {
+    height: 38px;
     padding: 0 12px;
     font-size: 12px;
   }
 
   .login-button {
-    height: 44px;
-    font-size: 15px;
+    height: 40px;
+    font-size: 14px;
   }
 
   .login-footer {
-    padding: 14px 16px;
+    padding: 10px 16px;
   }
 
   .login-footer p {
