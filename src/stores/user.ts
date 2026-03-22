@@ -7,8 +7,18 @@ export const useUserStore = defineStore('user', () => {
   const user = ref<User | null>(null)
   const isLoggedIn = ref(false)
 
-  const login = (username: string, password: string) => {
-    if (username && password) {
+  const login = (username: string, _password: string) => {
+    if (username) {
+      user.value = mockUser
+      isLoggedIn.value = true
+      localStorage.setItem('user', JSON.stringify(mockUser))
+      return true
+    }
+    return false
+  }
+
+  const loginWithPhone = (phone: string, code: string) => {
+    if (phone && code) {
       user.value = mockUser
       isLoggedIn.value = true
       localStorage.setItem('user', JSON.stringify(mockUser))
@@ -36,6 +46,7 @@ export const useUserStore = defineStore('user', () => {
     user,
     isLoggedIn,
     login,
+    loginWithPhone,
     logout,
     checkAuth
   }
