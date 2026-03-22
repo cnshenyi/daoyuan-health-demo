@@ -173,6 +173,36 @@ const routes: RouteRecordRaw[] = [
         path: '',
         name: 'WellnessDashboard',
         component: () => import('@/views/wellness/WellnessDashboard.vue')
+      },
+      {
+        path: 'plans',
+        name: 'WellnessPlans',
+        component: () => import('@/views/wellness/WellnessPlans.vue')
+      },
+      {
+        path: 'plans/:id',
+        name: 'WellnessPlanDetail',
+        component: () => import('@/views/wellness/WellnessPlanDetail.vue')
+      },
+      {
+        path: 'tracking',
+        name: 'WellnessTracking',
+        component: () => import('@/views/wellness/WellnessTracking.vue')
+      },
+      {
+        path: 'messages',
+        name: 'WellnessMessages',
+        component: () => import('@/views/wellness/WellnessMessages.vue')
+      },
+      {
+        path: 'messages/:convId',
+        name: 'WellnessMessageDetail',
+        component: () => import('@/views/wellness/WellnessMessageDetail.vue')
+      },
+      {
+        path: 'members/:id',
+        name: 'WellnessMemberDetail',
+        component: () => import('@/views/wellness/WellnessMemberDetail.vue')
       }
     ]
   },
@@ -186,6 +216,41 @@ const routes: RouteRecordRaw[] = [
         path: '',
         name: 'MentalDashboard',
         component: () => import('@/views/mental/MentalDashboard.vue')
+      },
+      {
+        path: 'assessments',
+        name: 'MentalAssessments',
+        component: () => import('@/views/mental/MentalAssessments.vue')
+      },
+      {
+        path: 'assessments/:id',
+        name: 'MentalAssessmentDetail',
+        component: () => import('@/views/mental/MentalAssessmentDetail.vue')
+      },
+      {
+        path: 'plans',
+        name: 'MentalPlans',
+        component: () => import('@/views/mental/MentalPlans.vue')
+      },
+      {
+        path: 'plans/:id',
+        name: 'MentalPlanDetail',
+        component: () => import('@/views/mental/MentalPlanDetail.vue')
+      },
+      {
+        path: 'messages',
+        name: 'MentalMessages',
+        component: () => import('@/views/mental/MentalMessages.vue')
+      },
+      {
+        path: 'messages/:convId',
+        name: 'MentalMessageDetail',
+        component: () => import('@/views/mental/MentalMessageDetail.vue')
+      },
+      {
+        path: 'members/:id',
+        name: 'MentalMemberDetail',
+        component: () => import('@/views/mental/MentalMemberDetail.vue')
       }
     ]
   }

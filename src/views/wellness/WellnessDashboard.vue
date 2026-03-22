@@ -28,6 +28,7 @@
         v-for="m in memberProfiles"
         :key="m.id"
         class="member-card"
+        @click="router.push('/wellness/members/' + m.id)"
       >
         <div class="member-avatar" :class="m.gender">
           {{ m.name.slice(-1) }}
@@ -47,9 +48,11 @@
 
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user'
+import { useRouter } from 'vue-router'
 import { mockMemberProfiles } from '@/mock/data'
 
 const userStore = useUserStore()
+const router = useRouter()
 const memberProfiles = mockMemberProfiles
 const statusLabel: Record<string, string> = { stable: '稳定', attention: '关注', urgent: '紧急' }
 </script>
@@ -58,15 +61,16 @@ const statusLabel: Record<string, string> = { stable: '稳定', attention: '关�
 .role-dashboard { padding: 0; }
 .role-banner { padding: 24px 16px; color: #fff; border-radius: 0 0 16px 16px; }
 .wellness-banner { background: linear-gradient(135deg, #E67E22 0%, #F39C12 100%); }
-.banner-title { font-size: 20px; font-weight: 700; margin: 0 0 4px 0; }
-.banner-subtitle { font-size: 13px; opacity: 0.85; margin: 0; }
+.banner-title { font-size: 20px; font-weight: 700; margin: 0 0 4px 0; color: #fff; }
+.banner-subtitle { font-size: 13px; opacity: 0.85; margin: 0; color: rgba(255,255,255,0.85); }
 .stats-row { display: flex; gap: 10px; padding: 16px; margin-top: -12px; }
 .stat-card { flex: 1; background: #fff; border-radius: 10px; padding: 12px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
 .stat-num { display: block; font-size: 24px; font-weight: 700; color: #1E3A5F; }
 .stat-label { font-size: 12px; color: #999; }
 .section-title { font-size: 16px; font-weight: 600; color: #1E3A5F; padding: 0 16px; margin: 8px 0 12px; }
 .member-list { padding: 0 16px 16px; display: flex; flex-direction: column; gap: 10px; }
-.member-card { display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 10px; padding: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+.member-card { display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 10px; padding: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); cursor: pointer; }
+.member-card:active { transform: scale(0.98); }
 .member-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600; color: #fff; flex-shrink: 0; }
 .member-avatar.male { background: linear-gradient(135deg, #1E3A5F, #2a4a6f); }
 .member-avatar.female { background: linear-gradient(135deg, #C9A962, #D4B87A); }
