@@ -88,8 +88,8 @@ const goTodo = (todo: any) => router.push('/doctor/patients/' + todo.patientId)
 .role-dashboard { padding: 0; background: #f5f7fa; }
 .role-banner { padding: 24px 16px 32px; color: #fff; border-radius: 0 0 16px 16px; }
 .doctor-banner { background: linear-gradient(135deg, #1E3A5F 0%, #2a5a8f 100%); }
-.banner-date { font-size: 12px; opacity: 0.7; margin: 0 0 4px; }
-.banner-title { font-size: 20px; font-weight: 700; margin: 0; }
+.banner-date { font-size: 12px; color: rgba(255,255,255,0.75); margin: 0 0 4px; }
+.banner-title { font-size: 20px; font-weight: 700; margin: 0; color: #fff; }
 .stats-row { display: flex; gap: 8px; padding: 0 16px; margin-top: -16px; }
 .stat-card { flex: 1; background: #fff; border-radius: 10px; padding: 10px 6px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
 .stat-card.urgent .stat-num { color: #E53935; }
