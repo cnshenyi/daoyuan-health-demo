@@ -1,7 +1,7 @@
 <template>
   <div class="manager-messages">
     <div class="msg-list">
-      <div v-for="conv in conversations" :key="conv.id" class="conv-card">
+      <div v-for="conv in conversations" :key="conv.id" class="conv-card" @click="goConv(conv.id)">
         <div class="conv-avatar" :class="conv.type">{{ conv.name.slice(-1) }}</div>
         <div class="conv-info">
           <div class="conv-header">
@@ -17,6 +17,10 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
 const conversations = [
   { id: 1, name: '沈轶', type: 'member', lastMsg: '好的，我今天的血糖数据已记录', time: '10:23', unread: 0 },
   { id: 2, name: '陈建国', type: 'urgent', lastMsg: '最近血压有点偏高，需要关注', time: '09:45', unread: 2 },
@@ -27,6 +31,8 @@ const conversations = [
   { id: 7, name: '周明', type: 'urgent', lastMsg: '最近心跳有点不规律', time: '上周', unread: 0 },
   { id: 8, name: '吴大伟', type: 'member', lastMsg: '运动计划我已经开始执行了', time: '上周', unread: 0 },
 ]
+
+const goConv = (id: number) => router.push('/manager/messages/' + id)
 </script>
 
 <style scoped>

@@ -99,6 +99,11 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/views/manager/ManagerMessages.vue')
       },
       {
+        path: 'messages/:convId',
+        name: 'MessageDetail',
+        component: () => import('@/views/manager/MessageDetail.vue')
+      },
+      {
         path: 'notes/:id',
         name: 'ManagerNotes',
         component: () => import('@/views/manager/ManagerNotes.vue')
@@ -107,6 +112,16 @@ const routes: RouteRecordRaw[] = [
         path: 'notes/new',
         name: 'ManagerNotesNew',
         component: () => import('@/views/manager/ManagerNotes.vue')
+      },
+      {
+        path: 'members/:id/health',
+        name: 'MemberHealthData',
+        component: () => import('@/views/manager/MemberHealthData.vue')
+      },
+      {
+        path: 'members/:id/service',
+        name: 'MemberServiceProgress',
+        component: () => import('@/views/manager/MemberServiceProgress.vue')
       }
     ]
   },

@@ -31,7 +31,7 @@
     </el-header>
 
     <!-- Main Content -->
-    <el-main class="main-content">
+    <el-main ref="mainEl" class="main-content">
       <router-view />
     </el-main>
 
@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, watch, ref, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { ElMessage } from 'element-plus'
@@ -84,6 +84,15 @@ const isIOSPWA = computed(() => {
 })
 
 const isActive = (path: string) => route.path === path
+
+// 路由切换时滚动到顶部
+const mainEl = ref<HTMLElement | null>(null)
+watch(() => route.path, () => {
+  nextTick(() => {
+    mainEl.value?.scrollTo({ top: 0 })
+    window.scrollTo({ top: 0 })
+  })
+})
 
 const navigateTo = (path: string) => {
   router.push(path)

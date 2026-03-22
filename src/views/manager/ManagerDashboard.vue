@@ -39,7 +39,7 @@
         <span class="section-more">全部</span>
       </div>
       <div class="todo-list">
-        <div v-for="todo in todayTodos" :key="todo.id" class="todo-card">
+        <div v-for="todo in todayTodos" :key="todo.id" class="todo-card" @click="goTodo(todo)">
           <div class="todo-dot" :class="todo.priority"></div>
           <div class="todo-info">
             <p class="todo-text">{{ todo.text }}</p>
@@ -142,6 +142,7 @@ const todayTodos = [
 ]
 
 const goMember = (id: string) => router.push('/manager/members/' + id)
+const goTodo = (todo: any) => router.push('/manager/members/' + (mockMemberProfiles.find(m => m.name === todo.member)?.id || '1'))
 </script>
 
 <style scoped>
@@ -280,7 +281,11 @@ const goMember = (id: string) => router.push('/manager/members/' + id)
   border-radius: 10px;
   padding: 12px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  cursor: pointer;
+  transition: transform 0.15s;
 }
+
+.todo-card:active { transform: scale(0.98); }
 
 .todo-dot {
   width: 8px;
