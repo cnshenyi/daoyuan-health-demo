@@ -1,5 +1,6 @@
 <template>
   <div class="notes-page">
+    <PageNavBar title="病程记录" />
     <!-- 新建记录入口 -->
     <div class="new-note-bar">
       <span class="new-note-label">{{ memberName }} 的病程记录</span>
@@ -54,6 +55,7 @@
 import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { mockProgressNotes, mockMemberProfiles } from '@/mock/data'
+import PageNavBar from '@/components/PageNavBar.vue'
 import { ElMessage } from 'element-plus'
 
 const route = useRoute()

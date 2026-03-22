@@ -1,5 +1,6 @@
 <template>
   <div class="member-detail">
+    <PageNavBar :title="member.name" />
     <!-- 会员头部信息 -->
     <div class="member-hero">
       <div class="hero-avatar" :class="member.gender">{{ member.name.slice(-1) }}</div>
@@ -134,6 +135,7 @@
 import { computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { mockMemberProfiles, mockProgressNotes } from '@/mock/data'
+import PageNavBar from '@/components/PageNavBar.vue'
 import { ElMessage } from 'element-plus'
 
 const route = useRoute()

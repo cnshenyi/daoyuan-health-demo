@@ -1,5 +1,6 @@
 <template>
   <div class="health-data-page">
+    <PageNavBar title="健康数据" />
     <div class="section">
       <h3 class="section-title">血糖记录</h3>
       <div class="chart-placeholder">
@@ -74,6 +75,7 @@ const weightData = [
   { date: '03-15', val: 75.2 },
   { date: '03-22', val: 74.9 },
 ]
+import PageNavBar from '@/components/PageNavBar.vue'
 const statusText: Record<string, string> = { normal: '正常', high: '偏高', low: '偏低', critical: '危急' }
 </script>
 

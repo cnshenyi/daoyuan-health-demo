@@ -135,14 +135,23 @@ const scoreClass = (score: number) => {
 
 // 今日待办 mock
 const todayTodos = [
-  { id: 1, text: '陈建国 - 血压数据跟进', member: '陈建国', time: '10:00', priority: 'urgent', done: false },
-  { id: 2, text: '李志远 - 本周病程记录录入', member: '李志远', time: '14:00', priority: 'urgent', done: false },
-  { id: 3, text: '沈轶 - 血糖数据周报发送', member: '沈轶', time: '16:00', priority: 'attention', done: false },
-  { id: 4, text: '张慧敏 - 体检报告回访', member: '张慧敏', time: '已完成', priority: 'stable', done: true },
+  { id: 1, text: '陈建国 - 血压数据跟进', member: '陈建国', time: '10:00', priority: 'urgent', done: false, action: 'health' },
+  { id: 2, text: '李志远 - 本周病程记录录入', member: '李志远', time: '14:00', priority: 'urgent', done: false, action: 'notes' },
+  { id: 3, text: '沈轶 - 血糖数据周报发送', member: '沈轶', time: '16:00', priority: 'attention', done: false, action: 'message' },
+  { id: 4, text: '张慧敏 - 体检报告回访', member: '张慧敏', time: '已完成', priority: 'stable', done: true, action: 'detail' },
 ]
 
 const goMember = (id: string) => router.push('/manager/members/' + id)
-const goTodo = (todo: any) => router.push('/manager/members/' + (mockMemberProfiles.find(m => m.name === todo.member)?.id || '1'))
+const goTodo = (todo: any) => {
+  const mid = mockMemberProfiles.find(m => m.name === todo.member)?.id || '1'
+  switch (todo.action) {
+    case 'health': router.push('/manager/members/' + mid + '/health'); break
+    case 'notes': router.push('/manager/notes/' + mid); break
+    case 'message': router.push('/manager/messages/' + (todo.id)); break
+    case 'service': router.push('/manager/members/' + mid + '/service'); break
+    default: router.push('/manager/members/' + mid)
+  }
+}
 </script>
 
 <style scoped>

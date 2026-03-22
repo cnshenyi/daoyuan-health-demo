@@ -1,5 +1,6 @@
 <template>
   <div class="service-progress-page">
+    <PageNavBar title="服务进度" />
     <div v-for="svc in services" :key="svc.id" class="service-card">
       <div class="svc-header">
         <div class="svc-icon" :style="{ background: svc.color + '18', color: svc.color }">
@@ -26,6 +27,7 @@
 </template>
 
 <script setup lang="ts">
+import PageNavBar from '@/components/PageNavBar.vue'
 const svcStatusText: Record<string, string> = { active: '进行中', completed: '已完成', pending: '待开始' }
 
 const services = [
