@@ -157,3 +157,78 @@ export interface HealthTrackingItem {
   lastUpdate: string
   assignedTo: string
 }
+
+// ============ 医生端类型 ============
+
+// 处方记录
+export interface Prescription {
+  id: string
+  patientId: string
+  patientName: string
+  date: string
+  diagnosis: string
+  medications: PrescriptionMedication[]
+  doctor: string
+  status: 'active' | 'completed' | 'cancelled'
+}
+
+export interface PrescriptionMedication {
+  name: string
+  dosage: string
+  frequency: string
+  duration: string
+  notes?: string
+}
+
+// 检查单
+export interface ExaminationOrder {
+  id: string
+  patientId: string
+  patientName: string
+  date: string
+  type: 'blood' | 'imaging' | 'ultrasound' | 'ecg' | 'other'
+  items: string[]
+  urgency: 'routine' | 'urgent'
+  status: 'pending' | 'in-progress' | 'completed'
+  result?: string
+  doctor: string
+}
+
+// 会诊申请
+export interface ConsultationRequest {
+  id: string
+  patientId: string
+  patientName: string
+  requestDate: string
+  requestDoctor: string
+  targetDepartment: string
+  targetDoctor?: string
+  reason: string
+  status: 'pending' | 'scheduled' | 'completed'
+  scheduledDate?: string
+}
+
+// 病历记录
+export interface MedicalRecord {
+  id: string
+  patientId: string
+  patientName: string
+  date: string
+  type: 'initial' | 'follow-up' | 'consultation' | 'emergency'
+  chiefComplaint: string
+  diagnosis: string[]
+  treatment: string
+  prescriptions?: string[]
+  doctor: string
+  nextFollowUp?: string
+}
+
+// 医生端消息会话
+export interface DoctorConversation {
+  id: number
+  name: string
+  type: 'patient' | 'manager' | 'doctor' | 'consultation-group'
+  lastMsg: string
+  time: string
+  unread: number
+}

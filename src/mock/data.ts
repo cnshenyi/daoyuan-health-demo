@@ -10,7 +10,12 @@ import type {
   ServiceProject,
   HealthTrackingItem,
   RoleOption,
-  MemberProfile
+  MemberProfile,
+  Prescription,
+  ExaminationOrder,
+  ConsultationRequest,
+  MedicalRecord,
+  DoctorConversation
 } from '@/types'
 
 // 当前用户
@@ -753,4 +758,66 @@ export const mockMemberProfiles: MemberProfile[] = [
     assignedDoctor: '李明华',
     status: 'stable'
   }
+]
+
+// ============================================================
+// 医生端 Mock 数据
+// ============================================================
+
+export const mockPrescriptions: Prescription[] = [
+  {
+    id: 'rx-1', patientId: '1', patientName: '沈轶', date: '2026-03-20', diagnosis: '2型糖尿病',
+    medications: [
+      { name: '二甲双胍', dosage: '850mg', frequency: '每日两次', duration: '3个月', notes: '餐后服用' },
+      { name: '阿托伐他汀', dosage: '20mg', frequency: '每晚一次', duration: '3个月' },
+      { name: '氨氯地平', dosage: '5mg', frequency: '每日一次', duration: '3个月' }
+    ],
+    doctor: '李明华', status: 'active'
+  },
+  {
+    id: 'rx-2', patientId: '3', patientName: '陈建国', date: '2026-03-19', diagnosis: '冠心病、高血压',
+    medications: [
+      { name: '阿司匹林', dosage: '100mg', frequency: '每日一次', duration: '长期' },
+      { name: '美托洛尔', dosage: '25mg', frequency: '每日两次', duration: '3个月' }
+    ],
+    doctor: '李明华', status: 'active'
+  },
+  {
+    id: 'rx-3', patientId: '9', patientName: '周明', date: '2026-03-16', diagnosis: '心房颤动',
+    medications: [
+      { name: '华法林', dosage: '2.5mg', frequency: '每日一次', duration: '长期', notes: '定期监测INR' },
+      { name: '地高辛', dosage: '0.125mg', frequency: '每日一次', duration: '3个月' }
+    ],
+    doctor: '李明华', status: 'active'
+  }
+]
+
+export const mockExaminationOrders: ExaminationOrder[] = [
+  { id: 'exam-1', patientId: '1', patientName: '沈轶', date: '2026-03-22', type: 'blood', items: ['糖化血红蛋白', '空腹血糖', '肝肾功能'], urgency: 'routine', status: 'pending', doctor: '李明华' },
+  { id: 'exam-2', patientId: '3', patientName: '陈建国', date: '2026-03-20', type: 'ecg', items: ['24小时动态心电图', '心脏超声'], urgency: 'urgent', status: 'in-progress', doctor: '李明华' },
+  { id: 'exam-3', patientId: '9', patientName: '周明', date: '2026-03-18', type: 'blood', items: ['凝血功能', 'INR', '血常规'], urgency: 'routine', status: 'completed', result: 'INR 2.3，在目标范围内', doctor: '李明华' }
+]
+
+export const mockConsultationRequests: ConsultationRequest[] = [
+  { id: 'consult-1', patientId: '3', patientName: '陈建国', requestDate: '2026-03-19', requestDoctor: '李明华', targetDepartment: '心内科', targetDoctor: '王志强', reason: '冠心病合并痛风，需评估用药方案', status: 'scheduled', scheduledDate: '2026-03-25' },
+  { id: 'consult-2', patientId: '9', patientName: '周明', requestDate: '2026-03-16', requestDoctor: '李明华', targetDepartment: '骨科', reason: '骨质疏松进展评估', status: 'pending' }
+]
+
+export const mockMedicalRecords: MedicalRecord[] = [
+  { id: 'mr-1', patientId: '1', patientName: '沈轶', date: '2026-03-20', type: 'follow-up', chiefComplaint: '血糖控制复查', diagnosis: ['2型糖尿病', '高血压', '高血脂'], treatment: '继续当前用药方案，加强饮食控制，增加运动量', prescriptions: ['二甲双胍 850mg bid', '阿托伐他汀 20mg qn'], doctor: '李明华', nextFollowUp: '2026-04-20' },
+  { id: 'mr-2', patientId: '3', patientName: '陈建国', date: '2026-03-19', type: 'follow-up', chiefComplaint: '胸闷气短加重1周', diagnosis: ['冠心病', '高血压3级', '痛风'], treatment: '调整降压方案，申请心内科会诊', doctor: '李明华', nextFollowUp: '2026-03-26' },
+  { id: 'mr-3', patientId: '6', patientName: '赵晓雯', date: '2026-03-18', type: 'initial', chiefComplaint: '体检发现亚健康状态', diagnosis: ['亚健康', '焦虑症'], treatment: '生活方式干预，心理疏导，必要时药物治疗', doctor: '李明华' },
+  { id: 'mr-4', patientId: '9', patientName: '周明', date: '2026-03-16', type: 'follow-up', chiefComplaint: '心悸、乏力', diagnosis: ['心房颤动', '高血压', '骨质疏松'], treatment: '华法林抗凝治疗，监测INR，申请骨科会诊', prescriptions: ['华法林 2.5mg qd', '地高辛 0.125mg qd'], doctor: '李明华', nextFollowUp: '2026-03-30' },
+  { id: 'mr-5', patientId: '7', patientName: '吴大伟', date: '2026-03-15', type: 'follow-up', chiefComplaint: '血脂复查', diagnosis: ['高血脂', '脂肪肝', '肥胖'], treatment: '强化降脂治疗，配合营养师制定减重方案', doctor: '李明华' }
+]
+
+export const mockDoctorConversations: DoctorConversation[] = [
+  { id: 1, name: '沈轶', type: 'patient', lastMsg: '李医生，我最近血糖波动比较大', time: '10:30', unread: 1 },
+  { id: 2, name: '陈建国', type: 'patient', lastMsg: '胸闷的情况有所好转', time: '09:15', unread: 0 },
+  { id: 3, name: '林雅婷（管家）', type: 'manager', lastMsg: '李志远的血压数据已上传', time: '昨天', unread: 2 },
+  { id: 4, name: '王志强医生', type: 'doctor', lastMsg: '陈建国的会诊时间确认了', time: '昨天', unread: 0 },
+  { id: 5, name: '陈建国会诊群', type: 'consultation-group', lastMsg: '王志强：建议增加冠脉CTA检查', time: '周五', unread: 3 },
+  { id: 6, name: '周明', type: 'patient', lastMsg: '华法林按时在吃，没有出血', time: '周四', unread: 0 },
+  { id: 7, name: '赵晓雯', type: 'patient', lastMsg: '焦虑情况有改善，谢谢医生', time: '周三', unread: 0 },
+  { id: 8, name: '周建国（心理）', type: 'doctor', lastMsg: '赵晓雯的心理评估报告已出', time: '上周', unread: 0 }
 ]

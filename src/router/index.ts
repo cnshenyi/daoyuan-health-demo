@@ -135,6 +135,31 @@ const routes: RouteRecordRaw[] = [
         path: '',
         name: 'DoctorDashboard',
         component: () => import('@/views/doctor/DoctorDashboard.vue')
+      },
+      {
+        path: 'patients',
+        name: 'DoctorPatients',
+        component: () => import('@/views/doctor/DoctorPatients.vue')
+      },
+      {
+        path: 'patients/:id',
+        name: 'DoctorPatientDetail',
+        component: () => import('@/views/doctor/DoctorPatientDetail.vue')
+      },
+      {
+        path: 'records',
+        name: 'DoctorRecords',
+        component: () => import('@/views/doctor/DoctorRecords.vue')
+      },
+      {
+        path: 'messages',
+        name: 'DoctorMessages',
+        component: () => import('@/views/doctor/DoctorMessages.vue')
+      },
+      {
+        path: 'messages/:convId',
+        name: 'DoctorMessageDetail',
+        component: () => import('@/views/doctor/DoctorMessageDetail.vue')
       }
     ]
   },
