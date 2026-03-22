@@ -87,7 +87,9 @@
             :class="['role-card', { active: selectedRole === item.role }]"
             @click="selectedRole = item.role"
           >
-            <span class="role-icon">{{ item.icon }}</span>
+            <div class="role-icon" :style="{ background: item.color + '14', color: item.color }">
+              <component :is="roleIconMap[item.role]" />
+            </div>
             <span class="role-label">{{ item.label }}</span>
             <span class="role-desc">{{ item.description }}</span>
             <span v-if="selectedRole === item.role" class="role-check">✓</span>
@@ -118,7 +120,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, h } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { ElMessage } from 'element-plus'
@@ -126,6 +128,31 @@ import { Phone, Key } from '@element-plus/icons-vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import type { UserRole } from '@/types'
 import { roleOptions } from '@/mock/data'
+
+// 角色 SVG 图标
+const IconMember = () => h('svg', { viewBox: '0 0 24 24', fill: 'currentColor' }, [
+  h('path', { d: 'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z' })
+])
+const IconManager = () => h('svg', { viewBox: '0 0 24 24', fill: 'currentColor' }, [
+  h('path', { d: 'M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z' })
+])
+const IconDoctor = () => h('svg', { viewBox: '0 0 24 24', fill: 'currentColor' }, [
+  h('path', { d: 'M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z' })
+])
+const IconWellness = () => h('svg', { viewBox: '0 0 24 24', fill: 'currentColor' }, [
+  h('path', { d: 'M15.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM5 12c-2.8 0-5 2.2-5 5s2.2 5 5 5 5-2.2 5-5-2.2-5-5-5zm0 8.5c-1.9 0-3.5-1.6-3.5-3.5s1.6-3.5 3.5-3.5 3.5 1.6 3.5 3.5-1.6 3.5-3.5 3.5zm5.8-10l2.4 2.4.8-.8c1.3-1.3 2.1-2.9 2.4-4.6h2.1V5.5h-5.3v2h2.8c-.3 1.1-.9 2.1-1.7 2.9l-1.4-1.5-1 1 2.4 2.4-3.5 3.5 1 1 3.5-3.5 2.4 2.4 1-1-2.4-2.4 1.4-1.4c1-1.1 1.8-2.5 2.1-4h1.7V5.5h-3V3.5h-2v2h-3l-2.5 2.7-.5 3.3zm8.7 5.5c-1.9 0-3.5-1.6-3.5-3.5s1.6-3.5 3.5-3.5 3.5 1.6 3.5 3.5-1.6 3.5-3.5 3.5z' })
+])
+const IconMental = () => h('svg', { viewBox: '0 0 24 24', fill: 'currentColor' }, [
+  h('path', { d: 'M13 1.07V9h7c0-4.08-3.05-7.44-7-7.93zM4 15c0 4.42 3.58 8 8 8s8-3.58 8-8v-4H4v4zm7-13.93C7.05 1.56 4 4.92 4 9h7V1.07z' })
+])
+
+const roleIconMap: Record<UserRole, any> = {
+  member: IconMember,
+  'health-manager': IconManager,
+  doctor: IconDoctor,
+  wellness: IconWellness,
+  'mental-education': IconMental
+}
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -428,15 +455,18 @@ const handleLogin = async () => {
 }
 
 .role-icon {
-  font-size: 24px;
   flex-shrink: 0;
   width: 36px;
   height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(30, 58, 95, 0.06);
   border-radius: 8px;
+}
+
+.role-icon :deep(svg) {
+  width: 20px;
+  height: 20px;
 }
 
 .role-label {

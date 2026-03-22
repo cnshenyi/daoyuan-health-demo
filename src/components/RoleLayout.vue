@@ -43,7 +43,9 @@
         :class="['nav-item', { active: isActive(item.path) }]"
         @click="navigateTo(item.path)"
       >
-        <span class="nav-icon">{{ item.icon }}</span>
+        <div class="nav-icon">
+          <component :is="item.icon" />
+        </div>
         <span class="nav-label">{{ item.label }}</span>
       </div>
     </div>
@@ -60,7 +62,7 @@ import { SwitchButton, Switch } from '@element-plus/icons-vue'
 interface NavItem {
   path: string
   label: string
-  icon: string
+  icon: any
 }
 
 const props = defineProps<{
@@ -239,8 +241,18 @@ const handleLogout = () => {
 }
 
 .nav-icon {
-  font-size: 22px;
+  width: 24px;
+  height: 24px;
   margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-icon :deep(svg) {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
 }
 
 .nav-label {
