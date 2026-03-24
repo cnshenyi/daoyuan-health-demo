@@ -19,10 +19,13 @@
               <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z" stroke="currentColor" stroke-width="2"/>
               <path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
-            <svg v-else viewBox="0 0 24 24" fill="none" class="tab-svg">
+            <svg v-else-if="tab.value === 'tests'" viewBox="0 0 24 24" fill="none" class="tab-svg">
               <path d="M9 3v2M15 3v2M9 19v2M15 19v2M3 9h2M3 15h2M19 9h2M19 15h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               <rect x="5" y="5" width="14" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
               <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <svg v-else viewBox="0 0 24 24" fill="none" class="tab-svg">
+              <path d="M3 13h2v8H3v-8zm4-4h2v12H7V9zm4-4h2v16h-2V5zm4 6h2v10h-2V11zm4-3h2v13h-2V8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
           <span class="tab-label">{{ tab.label }}</span>
@@ -247,6 +250,49 @@
         </div>
       </div>
     </div>
+
+    <!-- 指标趋势 -->
+    <div v-show="activeTab === 'trends'" class="tab-content">
+      <div v-for="indicator in trendIndicators" :key="indicator.name" class="medical-card trend-card">
+        <div class="medical-card-header">
+          <div>
+            <h3 class="medical-card-title">{{ indicator.name }}</h3>
+            <p class="trend-subtitle">{{ indicator.unit }} · 近6次检测</p>
+          </div>
+          <span :class="['trend-current', indicator.currentStatus]">
+            当前 {{ indicator.currentValue }}
+          </span>
+        </div>
+        <!-- SVG 图表 -->
+        <div class="trend-chart">
+          <svg :viewBox="'0 0 320 160'" class="chart-svg">
+            <!-- 危险区间背景 -->
+            <rect :x="0" :y="0" width="320" :height="indicator.dangerHighY" fill="rgba(229,57,53,0.06)" rx="4"/>
+            <rect :x="0" :y="indicator.dangerLowY" width="320" :height="160 - indicator.dangerLowY" fill="rgba(229,57,53,0.06)" rx="4"/>
+            <!-- 正常区间背景 -->
+            <rect :x="0" :y="indicator.normalHighY" width="320" :height="indicator.normalLowY - indicator.normalHighY" fill="rgba(46,139,87,0.06)"/>
+            <!-- 正常区间上下线 -->
+            <line :x1="0" :y1="indicator.normalHighY" :x2="320" :y2="indicator.normalHighY" stroke="#2E8B57" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+            <line :x1="0" :y1="indicator.normalLowY" :x2="320" :y2="indicator.normalLowY" stroke="#2E8B57" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+            <!-- 正常/危险标注 -->
+            <text :x="4" :y="indicator.normalHighY - 4" fill="#2E8B57" font-size="9" opacity="0.7">{{ indicator.normalHigh }}</text>
+            <text :x="4" :y="indicator.normalLowY + 12" fill="#2E8B57" font-size="9" opacity="0.7">{{ indicator.normalLow }}</text>
+            <!-- 数据折线 -->
+            <polyline :points="indicator.polylinePoints" fill="none" stroke="#1E3A5F" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+            <!-- 数据点 -->
+            <circle v-for="(pt, i) in indicator.dataPoints" :key="i" :cx="pt.x" :cy="pt.y" r="4" :fill="pt.status === 'normal' ? '#2E8B57' : '#E53935'" stroke="#fff" stroke-width="2"/>
+            <!-- 数据值标注 -->
+            <text v-for="(pt, i) in indicator.dataPoints" :key="'t'+i" :x="pt.x" :y="pt.y - 10" text-anchor="middle" :fill="pt.status === 'normal' ? '#2E8B57' : '#E53935'" font-size="10" font-weight="600">{{ pt.value }}</text>
+            <!-- X轴日期 -->
+            <text v-for="(pt, i) in indicator.dataPoints" :key="'d'+i" :x="pt.x" :y="155" text-anchor="middle" fill="#999" font-size="9">{{ pt.date }}</text>
+          </svg>
+        </div>
+        <div class="trend-legend">
+          <span class="legend-item"><span class="legend-dot normal"></span>正常区间</span>
+          <span class="legend-item"><span class="legend-dot danger"></span>异常区间</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -263,7 +309,8 @@ const showPrivateInfo = ref(false)
 const tabs = [
   { label: '病史信息', value: 'history' },
   { label: '体检报告', value: 'checkups' },
-  { label: '检验结果', value: 'tests' }
+  { label: '检验结果', value: 'tests' },
+  { label: '指标趋势', value: 'trends' }
 ]
 
 // 文字脱敏
@@ -281,6 +328,93 @@ const getStatusText = (status: string) => {
   }
   return statusMap[status] || status
 }
+
+// 指标趋势数据
+interface TrendDataPoint {
+  date: string
+  value: number
+  status: 'normal' | 'high' | 'low'
+}
+
+interface TrendIndicator {
+  name: string
+  unit: string
+  currentValue: string
+  currentStatus: string
+  normalHigh: string
+  normalLow: string
+  normalHighY: number
+  normalLowY: number
+  dangerHighY: number
+  dangerLowY: number
+  polylinePoints: string
+  dataPoints: { x: number; y: number; value: string; date: string; status: string }[]
+}
+
+const buildTrendIndicator = (
+  name: string, unit: string, normalRange: [number, number],
+  data: TrendDataPoint[], chartMin: number, chartMax: number
+): TrendIndicator => {
+  const padding = 20
+  const chartW = 320
+  const chartH = 130
+  const toY = (v: number) => padding + (chartMax - v) / (chartMax - chartMin) * chartH
+  const dataPoints = data.map((d, i) => ({
+    x: 30 + i * ((chartW - 60) / (data.length - 1)),
+    y: toY(d.value),
+    value: String(d.value),
+    date: d.date,
+    status: d.value >= normalRange[0] && d.value <= normalRange[1] ? 'normal' : 'danger'
+  }))
+  return {
+    name, unit,
+    currentValue: data[data.length - 1].value + ' ' + unit,
+    currentStatus: data[data.length - 1].status === 'normal' ? 'normal' : 'danger',
+    normalHigh: String(normalRange[1]),
+    normalLow: String(normalRange[0]),
+    normalHighY: toY(normalRange[1]),
+    normalLowY: toY(normalRange[0]),
+    dangerHighY: toY(chartMax),
+    dangerLowY: toY(normalRange[0]),
+    polylinePoints: dataPoints.map(p => `${p.x},${p.y}`).join(' '),
+    dataPoints
+  }
+}
+
+const trendIndicators = [
+  buildTrendIndicator('空腹血糖', 'mmol/L', [3.9, 6.1], [
+    { date: '06/15', value: 5.6, status: 'normal' },
+    { date: '08/10', value: 6.0, status: 'normal' },
+    { date: '09/15', value: 6.5, status: 'high' },
+    { date: '10/20', value: 7.0, status: 'high' },
+    { date: '12/15', value: 6.8, status: 'high' },
+    { date: '01/28', value: 7.2, status: 'high' }
+  ], 3, 9),
+  buildTrendIndicator('收缩压', 'mmHg', [90, 140], [
+    { date: '06/15', value: 118, status: 'normal' },
+    { date: '08/10', value: 122, status: 'normal' },
+    { date: '09/15', value: 128, status: 'normal' },
+    { date: '10/20', value: 135, status: 'normal' },
+    { date: '12/15', value: 125, status: 'normal' },
+    { date: '01/28', value: 130, status: 'normal' }
+  ], 80, 180),
+  buildTrendIndicator('体重', 'kg', [60, 75], [
+    { date: '06/15', value: 78, status: 'high' },
+    { date: '08/10', value: 77.5, status: 'high' },
+    { date: '09/15', value: 76.8, status: 'high' },
+    { date: '10/20', value: 76.2, status: 'high' },
+    { date: '12/15', value: 75.5, status: 'high' },
+    { date: '01/28', value: 75.0, status: 'normal' }
+  ], 55, 90),
+  buildTrendIndicator('尿酸', 'μmol/L', [208, 428], [
+    { date: '06/15', value: 410, status: 'normal' },
+    { date: '08/10', value: 395, status: 'normal' },
+    { date: '09/15', value: 420, status: 'normal' },
+    { date: '10/20', value: 380, status: 'normal' },
+    { date: '12/15', value: 350, status: 'normal' },
+    { date: '01/28', value: 380, status: 'normal' }
+  ], 150, 550)
+]
 </script>
 
 <style scoped>
@@ -736,6 +870,76 @@ const getStatusText = (status: string) => {
 .result-range {
   font-size: 11px;
   color: var(--color-text-tertiary);
+}
+
+/* 指标趋势 */
+.trend-card {
+  border-left: 3px solid #1E3A5F;
+}
+
+.trend-subtitle {
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+  margin-top: 2px;
+}
+
+.trend-current {
+  font-size: 14px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.trend-current.normal {
+  background: rgba(46, 139, 87, 0.1);
+  color: var(--color-success);
+}
+
+.trend-current.danger {
+  background: rgba(220, 53, 69, 0.1);
+  color: var(--color-danger);
+}
+
+.trend-chart {
+  margin: var(--spacing-sm) 0;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-xs);
+}
+
+.chart-svg {
+  width: 100%;
+  height: auto;
+}
+
+.trend-legend {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.legend-dot.normal {
+  background: rgba(46, 139, 87, 0.3);
+  border: 1px solid var(--color-success);
+}
+
+.legend-dot.danger {
+  background: rgba(220, 53, 69, 0.3);
+  border: 1px solid var(--color-danger);
 }
 
 /* 移动端适配 */

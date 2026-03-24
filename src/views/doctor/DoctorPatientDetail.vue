@@ -25,6 +25,32 @@
       <div class="diag-tags"><span v-for="d in patient.primaryDiagnosis" :key="d" class="diag-tag">{{ d }}</span></div>
     </div>
 
+    <!-- 基础信息 -->
+    <div class="section">
+      <h4 class="sec-title">基础信息</h4>
+      <div class="basic-grid">
+        <div class="basic-item" v-for="item in patientBasicInfo" :key="item.label">
+          <span class="basic-label">{{ item.label }}</span>
+          <span class="basic-value">{{ item.value }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 危险因素 -->
+    <div class="section" v-if="patientRiskFactors.length">
+      <h4 class="sec-title">危险因素</h4>
+      <div class="risk-list">
+        <div v-for="(risk, idx) in patientRiskFactors" :key="idx" class="risk-item">
+          <svg class="risk-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+          <div class="risk-content">
+            <span class="risk-name">{{ risk.name }}</span>
+            <span class="risk-desc">{{ risk.desc }}</span>
+          </div>
+          <span :class="['risk-level', risk.level]">{{ risk.levelText }}</span>
+        </div>
+      </div>
+    </div>
+
     <!-- 快捷操作 -->
     <div class="action-grid">
       <div class="action-btn" @click="showRxPanel = true">
@@ -43,6 +69,10 @@
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
         <span>会诊申请</span>
       </div>
+      <div class="action-btn" @click="showLongTermPanel = true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/></svg>
+        <span>长期计划</span>
+      </div>
     </div>
 
     <!-- 当前用药 -->
@@ -60,13 +90,17 @@
     <!-- 检查结果 -->
     <div class="section" v-if="patientExams.length">
       <h4 class="sec-title">检查结果</h4>
-      <div v-for="ex in patientExams" :key="ex.id" class="exam-card">
-        <div class="exam-header">
-          <span :class="['exam-status', ex.status]">{{ examStatusLabel[ex.status] }}</span>
-          <span class="exam-date">{{ ex.date }}</span>
+      <div v-for="group in examGroups" :key="group.type" class="exam-group">
+        <div class="exam-group-title">{{ examTypeLabel[group.type] || group.type }}</div>
+        <div class="exam-compare">
+          <div v-for="ex in group.exams" :key="ex.id" class="exam-col">
+            <div class="exam-col-date">{{ ex.date.slice(5) }}</div>
+            <span :class="['exam-status', ex.status]">{{ examStatusLabel[ex.status] }}</span>
+            <p class="exam-col-items">{{ ex.items.join('、') }}</p>
+            <p v-if="ex.result" class="exam-col-result">{{ ex.result }}</p>
+            <p v-else class="exam-col-pending">待出结果</p>
+          </div>
         </div>
-        <p class="exam-items">{{ ex.items.join('、') }}</p>
-        <p v-if="ex.result" class="exam-result">结果：{{ ex.result }}</p>
       </div>
     </div>
 
