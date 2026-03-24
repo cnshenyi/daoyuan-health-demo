@@ -768,25 +768,25 @@ export const mockPrescriptions: Prescription[] = [
   {
     id: 'rx-1', patientId: '1', patientName: '沈轶', date: '2026-03-20', diagnosis: '2型糖尿病',
     medications: [
-      { name: '二甲双胍', dosage: '850mg', frequency: '每日两次', duration: '3个月', notes: '餐后服用' },
-      { name: '阿托伐他汀', dosage: '20mg', frequency: '每晚一次', duration: '3个月' },
-      { name: '氨氯地平', dosage: '5mg', frequency: '每日一次', duration: '3个月' }
+      { name: '二甲双胍 Metformin (Glucophage)', dosage: '850mg', frequency: '每日两次', duration: '3个月', notes: '餐后服用' },
+      { name: '阿托伐他汀 Atorvastatin (Lipitor)', dosage: '20mg', frequency: '每晚一次', duration: '3个月' },
+      { name: '氨氯地平 Amlodipine (Norvasc)', dosage: '5mg', frequency: '每日一次', duration: '3个月' }
     ],
     doctor: '李明华', status: 'active'
   },
   {
     id: 'rx-2', patientId: '3', patientName: '陈建国', date: '2026-03-19', diagnosis: '冠心病、高血压',
     medications: [
-      { name: '阿司匹林', dosage: '100mg', frequency: '每日一次', duration: '长期' },
-      { name: '美托洛尔', dosage: '25mg', frequency: '每日两次', duration: '3个月' }
+      { name: '阿司匹林 Aspirin (Bayaspirin)', dosage: '100mg', frequency: '每日一次', duration: '长期' },
+      { name: '美托洛尔 Metoprolol (Betaloc)', dosage: '25mg', frequency: '每日两次', duration: '3个月' }
     ],
     doctor: '李明华', status: 'active'
   },
   {
     id: 'rx-3', patientId: '9', patientName: '周明', date: '2026-03-16', diagnosis: '心房颤动',
     medications: [
-      { name: '华法林', dosage: '2.5mg', frequency: '每日一次', duration: '长期', notes: '定期监测INR' },
-      { name: '地高辛', dosage: '0.125mg', frequency: '每日一次', duration: '3个月' }
+      { name: '华法林 Warfarin (Coumadin)', dosage: '2.5mg', frequency: '每日一次', duration: '长期', notes: '定期监测INR' },
+      { name: '地高辛 Digoxin (Lanoxin)', dosage: '0.125mg', frequency: '每日一次', duration: '3个月' }
     ],
     doctor: '李明华', status: 'active'
   }
@@ -795,7 +795,13 @@ export const mockPrescriptions: Prescription[] = [
 export const mockExaminationOrders: ExaminationOrder[] = [
   { id: 'exam-1', patientId: '1', patientName: '沈轶', date: '2026-03-22', type: 'blood', items: ['糖化血红蛋白', '空腹血糖', '肝肾功能'], urgency: 'routine', status: 'pending', doctor: '李明华' },
   { id: 'exam-2', patientId: '3', patientName: '陈建国', date: '2026-03-20', type: 'ecg', items: ['24小时动态心电图', '心脏超声'], urgency: 'urgent', status: 'in-progress', doctor: '李明华' },
-  { id: 'exam-3', patientId: '9', patientName: '周明', date: '2026-03-18', type: 'blood', items: ['凝血功能', 'INR', '血常规'], urgency: 'routine', status: 'completed', result: 'INR 2.3，在目标范围内', doctor: '李明华' }
+  { id: 'exam-3', patientId: '9', patientName: '周明', date: '2026-03-18', type: 'blood', items: ['凝血功能', 'INR', '血常规'], urgency: 'routine', status: 'completed', result: 'INR 2.3，在目标范围内', doctor: '李明华' },
+  { id: 'exam-4', patientId: '1', patientName: '沈轶', date: '2026-01-15', type: 'blood', items: ['糖化血红蛋白', '空腹血糖', '肝肾功能'], urgency: 'routine', status: 'completed', result: 'HbA1c 7.5%, 空腹血糖 7.2mmol/L', doctor: '李明华' },
+  { id: 'exam-5', patientId: '1', patientName: '沈轶', date: '2025-10-10', type: 'blood', items: ['糖化血红蛋白', '空腹血糖', '肝肾功能'], urgency: 'routine', status: 'completed', result: 'HbA1c 8.1%, 空腹血糖 8.0mmol/L', doctor: '李明华' },
+  { id: 'exam-6', patientId: '3', patientName: '陈建国', date: '2025-12-15', type: 'ecg', items: ['24小时动态心电图', '心脏超声'], urgency: 'routine', status: 'completed', result: '偶发房性早搏，左室射血分数55%', doctor: '李明华' },
+  { id: 'exam-7', patientId: '3', patientName: '陈建国', date: '2025-09-20', type: 'ecg', items: ['常规心电图', '心脏超声'], urgency: 'routine', status: 'completed', result: '窦性心律，左室射血分数58%', doctor: '李明华' },
+  { id: 'exam-8', patientId: '9', patientName: '周明', date: '2025-12-18', type: 'blood', items: ['凝血功能', 'INR', '血常规'], urgency: 'routine', status: 'completed', result: 'INR 2.1，在目标范围内', doctor: '李明华' },
+  { id: 'exam-9', patientId: '9', patientName: '周明', date: '2025-09-18', type: 'blood', items: ['凝血功能', 'INR', '血常规'], urgency: 'routine', status: 'completed', result: 'INR 1.8，偏低，需调整华法林剂量', doctor: '李明华' }
 ]
 
 export const mockConsultationRequests: ConsultationRequest[] = [
